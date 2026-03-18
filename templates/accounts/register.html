@@ -1,0 +1,318 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Register{% endblock title %}
+
+{% block CustomCSS %}
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f2ff, #f9fbff);
+            min-height: 100vh;
+        }
+
+        .register-card {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .register-header {
+            color: #38465bff;
+            padding-top: 24px;
+            text-align: center;
+        }
+
+        .register-header h2 {
+            color: #635994;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .register-body {
+            padding: 30px;
+        }
+
+        .form-control, .form-select {
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .btn-register {
+            height: 42px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+        }
+
+        @media (max-width: 576px) {
+            .register-body {
+                padding: 20px;
+            }
+        }
+    </style>
+{% endblock CustomCSS %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-md-10 col-lg-9 col-xl-8">
+
+            <div class="register-card mt-5">
+
+                <!-- Header -->
+                <div class="register-header">
+                    <img src="{% static 'media\icons\mediconnect-icon.png' %}" width="37" height="37" alt="Logo">
+                        <h2><span style="color: #45c5fd; font-family: Impact, Charcoal, sans-serif; font-weight: 500;">Medi</span>Connect</h2>
+                    <span class="text-muted small">Register Your Account</span>
+                </div>
+
+                <!-- Body -->
+                <div class="register-body">
+
+                    <!-- Django Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="message mb-4 
+                        {% if message.tags == 'success' %}message-success
+                        {% elif message.tags == 'error' %}message-error
+                        {% elif message.tags == 'warning' %}message-warning
+                        {% elif message.tags == 'info' %}message-info
+                        {% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <!-- Form -->
+                    <form method="POST" action="{% url 'register' %}" id="registerForm">
+                        {% csrf_token %}
+
+                        <!-- User Type -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" for="id_user_type">Register As</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-people-fill"></i></span>
+                                <select name="user_type" id="id_user_type" class="form-select" required>
+                                    <option value="" selected disabled>-- Select User Type --</option>
+                                    <option value="patient">Patient</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="hospital_admin">Hospital Admin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- BASIC INFO -->
+                        <h6 class="mt-4 mb-3 text-primary">Basic Information</h6>
+
+                        <div class="row mb-3">
+                            <!-- First Name (Common Fields) -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="id_first_name">First Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                    <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Enter first name" required>
+                                </div>
+                            </div>
+                            <!-- Last Name (Common Fields) -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="id_last_name">Last Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                    <input type="text" name="last_name" id="id_last_name" class="form-control" placeholder="Enter last name" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <!-- Email (Common Fields) -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="id_email">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                                    <input type="email" name="email" id="id_email" class="form-control" placeholder="Enter email" required autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!-- Phone Number (Common Fields) -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="id_phone">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                                    <input type="tel" name="phone" id="id_phone" class="form-control" placeholder="Enter phone number" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Username (Common Fields) -->                        
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold" for="id_username">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-at"></i></span>
+                                    <input type="text" name="username" id="id_username" class="form-control" placeholder="Choose a username" required autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Only Fields -->
+                        <div class="doctor-fields d-none" id="doctorFields">
+                            
+                            <h6 class="mt-4 mb-3 text-primary">Doctor Information</h6>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="id_qualification">Qualification</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-mortarboard-fill"></i></span>
+                                        <select name="qualification" id="id_qualification" class="form-select">
+                                            <option value="">-- Select Qualification --</option>
+                                            <option value="MBBS">MBBS</option>
+                                            <option value="MBBS, MD">MBBS, MD</option>
+                                            <option value="MBBS, MS">MBBS, MS</option>
+                                            <option value="MBBS, DNB">MBBS, DNB</option>
+                                            <option value="BAMS">BAMS</option>
+                                            <option value="Other">Not in list</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="id_specialization">Specialization</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-heart-pulse-fill"></i></span>
+                                        <select name="specialization" id="id_specialization" class="form-select">
+                                            <option value="" selected disabled>-- Select Specialization --</option>
+
+                                            {% for sp in specialities %}
+                                                <option value="{{ sp.id }}">{{ sp.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label class="form-label fw-semibold" for="id_experience">Years of Experience</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-bar-chart-fill"></i></span>
+                                        <input type="number" name="experience" id="id_experience" class="form-control" min="0" placeholder="e.g. 5">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Hospital Admin Only Fields -->
+                        <div class="hospital-admin-fields d-none" id="hospitalAdminFields">
+                            
+                            <h6 class="mt-4 mb-3 text-primary">Hospital Admin Information</h6>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="id_hospital_name">Hospital Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-building-fill"></i></span>
+                                        <input type="text" name="hospital_name" id="id_hospital_name" class="form-control" placeholder="Enter hospital name">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="id_hospital_code">Hospital Code</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-file-earmark-medical-fill"></i></span>
+                                        <input type="text" name="hospital_code" id="id_hospital_code"class="form-control" placeholder="Enter hospital code">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label class="form-label fw-semibold" for="id_hospital_address">Hospital Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-geo-alt-fill"></i></span>
+                                        <textarea name="hospital_address" id="id_hospital_address"class="form-control" rows="3" placeholder="Hospital address"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- PASSWORD -->
+
+                        <h6 class="mt-4 mb-3 text-primary">Security</h6>
+
+                        <div class="row mb-3">
+                            <!-- Password Common Fields -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="id_password">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                    <input type="password" name="password" id="id_password" class="form-control" placeholder="Enter password" required>
+                                    <button class="input-group-text" type="button" id="togglePassword">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password Common Fields -->
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="id_confirm_password">Confirm Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
+                                    <input type="password" name="confirm_password" id="id_confirm_password" class="form-control" placeholder="Re-enter password" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info d-none" id="doctoralert">
+                            <small>
+                                Doctor accounts require Hospital Admin or Super Admin approval before login.
+                            </small>
+                        </div>
+
+                        <div class="alert alert-info d-none" id="hospitaladminalert">
+                            <small>
+                                Hospital Admin accounts require Super Admin approval before login.
+                            </small>
+                        </div>
+
+
+                        <!-- Submit -->
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-register">
+                                <i class="bi bi-person-plus-fill"></i> Register
+                            </button>
+                        </div>
+
+                        <!-- Login Link -->
+                        <div class="text-center small">
+                            Already have an account?
+                            <a href="{% url 'login' %}" class="fw-semibold text-decoration-none">
+                                Login here
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center text-muted mt-3 small">
+                © 2026 MediConnect | Digital Healthcare Platform
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
+
+
+{% block CustomJS %}
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock CustomJS %}

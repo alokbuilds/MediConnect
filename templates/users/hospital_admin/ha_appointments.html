@@ -1,0 +1,93 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+{% load static %}
+
+{% block title %}Manage Appointments{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <!-- Page Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">Manage Appointments</h3>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="message mb-4 {% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Appointments Table -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Appt. ID</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.appointment_id }}</td>
+
+                            <td>
+                                {{ appointment.patient.user.username }}
+                            </td>
+
+                            <td>
+                                {{ appointment.doctor.user.username }}
+                            </td>
+
+                            <td>{{ appointment.appointment_date }}</td>
+                            <td>{{ appointment.appointment_time }}</td>
+
+                            <td>
+                                {% if appointment.status == "pending" %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                {% elif appointment.status == "approved" %}
+                                    <span class="badge bg-success">Approved</span>
+                                {% elif appointment.status == "completed" %}
+                                    <span class="badge bg-success">Completed</span>
+                                {% elif appointment.status == "cancelled" %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <!-- View: always visible -->
+                                <a href="{% url 'hospital_admin_view_appointment' appointment.id %}"
+                                class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">
+                                No appointments found
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

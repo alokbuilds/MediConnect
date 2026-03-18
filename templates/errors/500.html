@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}500 - Server Error{% endblock %}
+
+{% block content %}
+<div class="error-page" style="text-align:center; padding:60px 20px;">
+
+    <img src="{% static 'images/500.png' %}" alt="500 Server Error"
+         style="max-width:320px; margin-bottom:20px;">
+
+    <h1>500 - Internal Server Error</h1>
+
+    <p style="font-size:16px; color:#555;">
+        Oops! Something went wrong on our side.
+    </p>
+
+    <p style="margin-top:10px;">
+        Please try again later or contact the administrator if the problem persists.
+    </p>
+
+    <div style="margin-top:30px;">
+        <a href="/" class="btn btn-primary">
+            Go to Home
+        </a>
+        &nbsp;
+        <a href="{% url 'login' %}" class="btn btn-secondary">
+            Login Again
+        </a>
+    </div>
+
+</div>
+{% endblock %}

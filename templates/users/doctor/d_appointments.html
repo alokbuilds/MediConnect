@@ -1,0 +1,102 @@
+{% extends "users/doctor/d_base.html" %}
+
+{% block title %}My Appointments{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <h4 class="fw-bold mb-3">My Appointments</h4>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="message mb-4 {% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <!-- Appointments Table -->
+    {% if appointments %}
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+
+                <table class="table table-striped mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Age</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for ap in appointments %}
+                        <tr>
+                            <td>{{ ap.patient }}</td>
+                            <td>{{ ap.patient.age }}</td>
+                            <td>{{ ap.appointment_date }}</td>
+                            <td>{{ ap.appointment_time }}</td>
+                            <td>
+                                {% if ap.status == "pending" %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% elif ap.status == "approved" %}
+                                    <span class="badge bg-primary">Approved</span>
+                                {% elif ap.status == "completed" %}
+                                    <span class="badge bg-success">Completed</span>
+                                {% elif ap.status == "cancelled" %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <!-- View: always visible -->
+                                <a href="{% url 'doctor_view_appointment' ap.id %}"
+                                class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+
+                                <!-- Pending: Approve + Cancel -->
+                                {% if ap.status == "pending" %}
+                                    <a href="{% url 'doctor_approve_appointment' ap.id %}"
+                                    class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </a>
+
+                                    <a href="{% url 'doctor_cancel_appointment' ap.id %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Cancel this appointment?');">
+                                        <i class="bi bi-x-circle"></i> Cancel
+                                    </a>
+                                {% endif %}
+
+                                <!-- Approved: Prescribe -->
+                                {% if ap.status == "approved" %}
+                                    <a href="{% url 'doctor_create_prescription' ap.id %}"
+                                    class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-file-medical"></i> Prescribe
+                                    </a>
+                                {% endif %}
+                            </td>
+
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No appointments found.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

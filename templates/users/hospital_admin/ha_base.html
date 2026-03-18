@@ -1,0 +1,162 @@
+{% load tz %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static '/media/icons/mediconnect-icon.png' %}">
+    <title>{% block title %}{% endblock title %} | MediConnect</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    {% block extraCSS %}{% endblock extraCSS %}
+
+
+    <style>
+        body {
+            background-color: #ebf4ff;
+        }
+
+        /* ---Message Styles----- */
+        .message-container {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        .message-success {
+            background-color: #d1f5d3;
+            color: #4caf50;
+        }
+
+        .message-error {
+            background-color: #f8d7da;
+            color: #b12130;
+        }
+
+        .message-warning{
+            background-color: #fffbed;
+            color: #ff9800;
+        }
+
+        .message-info{
+            background-color: #e0f2fe;
+            color: #03a9f4; 
+        }
+
+
+        /* Sidebar */
+        .sidebar {
+            min-height: 100vh;
+            background: #1e5c8a;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 15px;
+            display: block;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        /* Cards */
+        .dashboard-card {
+            transition: 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="sticky-md-top navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #7ebce9  !important;">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'hospital_admin_dashboard' %}" style="color: #635a93; text-decoration: none; border-right-style: solid; border-right-color: #635a93; border-right-width: 1px; padding: 8px 26px 8px 5px;">
+            <img src="{% static 'media\logos\mediconnect-logo.png' %}" width="37" height="37" alt="Logo"><b><span style="color: #2f97ff;">Medi</span>Connect</b>
+        </a>
+
+        <div class="d-flex align-items-center text-white">
+            <span class="me-3 small" id="clock"></span>
+            <i class="bi bi-person-badge fs-5 me-2"></i>
+            <span class="me-3">{{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN LAYOUT -->
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="sticky-sm-left sidebar col-md-3 col-lg-2 p-3">
+            <a href="{% url 'hospital_admin_dashboard' %}" class="active">
+                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+            </a>
+            <a href="{% url 'hospital_admin_doctors' %}"><i class="bi bi-person-lines-fill me-2"></i>Doctors</a>
+            <a href="{% url 'hospital_admin_patients' %}"><i class="bi bi-people-fill me-2"></i>Patients</a>
+            <a href="{% url 'hospital_admin_appointments' %}"><i class="bi bi-calendar-check me-2"></i>Appointments</a>
+            <a href="{% url 'hospital_admin_specialities' %}"><i class="bi bi-heart-pulse me-2"></i>Specialities</a>
+            <a href="{% url 'hospital_admin_reports' %}"><i class="bi bi-graph-up-arrow me-2"></i>Reports</a>
+            <a href="{% url 'hospital_admin_profile' %}"><i class="bi bi-gear me-2"></i>Profile Settings</a>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-9 col-lg-10 p-4">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- REAL-TIME CLOCK -->
+<script>
+    function updateClock() {
+        const now = new Date();
+        document.getElementById("clock").textContent =
+            now.toLocaleDateString() + " " + now.toLocaleTimeString();
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+// Auto-hide messages after 4 seconds
+setTimeout(() => {
+    document.querySelectorAll('.message').forEach(msg => {
+        msg.style.transition = "opacity 0.5s";
+        msg.style.opacity = "0";
+        setTimeout(() => msg.style.display = "none", 500);
+    });
+}, 4000);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "users/doctor/d_base.html" %}
+
+{% block title %}My Patients{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <h4 class="fw-bold mb-3">My Patients</h4>
+
+    {% if patients %}
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+
+                <table class="table table-striped mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Phone</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for p in patients %}
+                        <tr>
+                            <td>{{ p.patient_id }}</td>
+                            <td>{{ p.user.first_name }} {{ p.user.last_name }}</td>
+                            <td>{{ p.age }}</td>
+                            <td>{{ p.phone }}</td>
+                            <td>
+                                <a href="{% url 'doctor_view_patient_history' p.id %}"
+                                class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-clock-history"></i> View History
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No patients found.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

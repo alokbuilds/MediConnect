@@ -1,0 +1,98 @@
+{% extends "users/doctor/d_base.html" %}
+
+{% block title %}Availability{% endblock %}
+
+{% block content %}
+<h4 class="fw-bold mb-3">My Availability</h4>
+
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="message mb-4 
+    {% if message.tags == 'success' %}message-success
+    {% elif message.tags == 'error' %}message-error
+    {% elif message.tags == 'warning' %}message-warning
+    {% elif message.tags == 'info' %}message-info
+    {% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Add Availability -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="form-label">Day</label>
+                    <select name="day" class="form-select" required>
+                        <option value="">Select day</option>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Start Time</label>
+                    <input type="time" name="start_time" class="form-control" required>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">End Time</label>
+                    <input type="time" name="end_time" class="form-control" required>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Availability List -->
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in availabilities %}
+                <tr>
+                    <td>{{ a.day|title }}</td>
+                    <td>{{ a.start_time }} - {{ a.end_time }}</td>
+                    <td>
+                        <a href="{% url 'delete_doctor_availability' a.id %}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this availability?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center text-muted">
+                        No availability added yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

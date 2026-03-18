@@ -1,0 +1,71 @@
+{% extends "users/doctor/d_base.html" %}
+
+{% block title %}Profile Settings{% endblock %}
+
+{% block content %}
+<h4 class="fw-bold mb-4">Profile Settings</h4>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+
+            <h6 class="text-primary mb-3">Basic Information</h6>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" name="first_name"
+                           value="{{ user.first_name }}"
+                           class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" name="last_name"
+                           value="{{ user.last_name }}"
+                           class="form-control" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email"
+                       value="{{ user.email }}"
+                       class="form-control" required>
+            </div>
+
+            <h6 class="text-primary mb-3 mt-4">Professional Details</h6>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input type="text" name="phone"
+                           value="{{ doctor.phone }}"
+                           class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Experience (Years)</label>
+                    <input type="number" name="experience"
+                           value="{{ doctor.experience }}"
+                           class="form-control">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Qualification</label>
+                <input type="text" name="qualification"
+                       value="{{ doctor.qualification }}"
+                       class="form-control">
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

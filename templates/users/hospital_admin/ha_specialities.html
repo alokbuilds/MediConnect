@@ -1,0 +1,39 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+{% block title %}DoctorSpeciality - Admin{% endblock %}
+{% block content %}
+<h2>Manage Specialities</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Enter speciality name">
+    <button type="submit">Add Speciality</button>
+</form>
+
+<hr>
+
+<table border="1" cellpadding="13">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+
+    {% for s in specialities %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ s.name }}</td>
+        <td>
+            <a href="{% url 'delete_speciality' s.id %}"
+               onclick="return confirm('Delete this speciality?')">
+                Delete
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">No specialities found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

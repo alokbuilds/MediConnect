@@ -1,0 +1,81 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+{% block title %}Doctors List - Admin{% endblock %}
+{% block extraCSS%} 
+
+{% endblock extraCSS %}
+{% block content %}
+<h4 class="mb-3">Doctor Management</h4>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="message mb-4 
+    {% if message.tags == 'success' %}message-success
+    {% elif message.tags == 'error' %}message-error
+    {% elif message.tags == 'warning' %}message-warning
+    {% elif message.tags == 'info' %}message-info
+    {% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<table class="table table-bordered table-hover align-middle">
+    <thead class="table-secondary">
+        <tr>
+            <th>Doctor ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Created On</th>
+            <th>Approval</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.doctor_id }}</td>
+            <td>Dr. {{ doctor.user.get_full_name }}</td>
+            <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.created_at|date:'d M Y' }}</td>
+
+            <td>
+                {% if doctor.is_approved %}
+                    <span class="badge bg-success">Approved</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if doctor.is_active %}
+                    <span class="badge bg-primary">Active</span>
+                {% else %}
+                    <span class="badge bg-danger">Blocked</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if not doctor.is_approved %}
+                    <a href="{% url 'approve_doctor' doctor.id %}" class="btn btn-sm btn-success">
+                        Approve
+                    </a>
+                    <a href="{% url 'reject_doctor' doctor.id %}" class="btn btn-sm btn-danger">
+                        Reject
+                    </a>
+                {% elif doctor.is_active %}
+                    <a href="{% url 'block_doctor' doctor.id %}" class="btn btn-sm btn-danger">
+                        Block
+                    </a>
+                {% else %}
+                    <a href="{% url 'unblock_doctor' doctor.id %}" class="btn btn-sm btn-warning">
+                        Unblock
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

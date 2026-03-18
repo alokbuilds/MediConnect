@@ -1,0 +1,137 @@
+{% extends "users/doctor/d_base.html"%}
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-semibold">
+            <i class="bi bi-speedometer2 me-2"></i>Doctor Dashboard
+        </h4>
+        <span class="badge bg-success px-3 py-2">
+            Welcome, Dr. {{ user.first_name }}
+        </span>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+
+        <!-- Total Appointments -->
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3">
+                <i class="bi bi-calendar-check fs-2 text-primary"></i>
+                <h6 class="mt-2">Total Appointments</h6>
+                <h3>{{ total_appointments }}</h4>
+            </div>
+        </div>
+
+        <!-- Today's Appointments -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-calendar-day fs-2 text-primary"></i>
+                    <h6>Today's Appointments</h6>
+                    <h3>{{ today_appointments }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments -->
+        <div class="col-md-2">
+            <div class="card shadow-sm text-center p-3">
+                <i class="bi bi-clock-history fs-2 text-warning"></i>
+                <h6 class="mt-2">Pending</h6>
+                <h4>{{ pending_appointments }}</h4>
+            </div>
+        </div>
+
+        <!-- Completed Appointments -->
+        <div class="col-md-2">
+            <div class="card shadow-sm text-center p-3">
+                <i class="bi bi-check-circle fs-2 text-success"></i>
+                <h6 class="mt-2">Completed</h6>
+                <h4>{{ completed_appointments }}</h4>
+            </div>
+        </div>
+
+        <!-- Cancelled Appointments -->
+        <div class="col-md-2">
+            <div class="card shadow-sm text-center p-3">
+                <i class="bi bi-x-circle fs-2 text-danger"></i>
+                <h6 class="mt-2">Cancelled</h6>
+                <h4>{{ cancelled_appointments }}</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TODAY'S APPOINTMENTS -->
+    <div class="card shadow-sm">
+        <div class="card-header fw-semibold">
+            Today's Appointments
+        </div>
+        <div class="card-body p-0">
+
+            {% if todays_list %}
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Age</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ap in todays_list %}
+                        <tr>
+                            <td>{{ ap.patient }}</td>
+                            <td>{{ ap.patient.age }}</td>
+                            <td>{{ ap.appointment_time }}</td>
+                            <td>
+                                {% if ap.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">
+                                        {{ ap.status }}
+                                    </span>
+                                {% elif ap.status == 'approved' %}
+                                    <span class="badge bg-success">
+                                        {{ ap.status }}
+                                    </span>
+                                {% elif ap.status == 'completed' %}
+                                    <span class="badge bg-success">
+                                        {{ ap.status }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        {{ ap.status }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <!-- View: always visible -->
+                                <a href="{% url 'doctor_view_appointment' ap.id %}"
+                                class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+
+                                <a href="#" class="btn btn-sm btn-success">
+                                    Prescribe
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="p-3 text-center text-muted">
+                    No appointments for today.
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

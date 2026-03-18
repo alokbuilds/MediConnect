@@ -1,0 +1,97 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Services{% endblock title %}
+{% block CustomCSS %}
+{% endblock CustomCSS %}
+
+{% block services %}
+<section class="services" id="services">
+
+    <div class="container py-4">
+        <h2 class="sectionTitle">MediConnect Services</h2>
+    </div>
+    <div class="boxContainer">
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Health to expectant mothers</div>
+            <div class="serviceCount">
+                Related Services offered: <span>+134</span>
+            </div>
+            <button>
+                <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+            </button>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Our committed Doctors</div>
+            <div class="serviceCount">
+                Positive service-oriented responses: <span>+606</span>
+            </div>
+            <button>
+                <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+            </button>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Don't suffer alone, reach out</div>
+            <div class="serviceCount">
+                Appointments made, 2025: <span>+401</span>
+            </div>
+            <button>
+                <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+            </button>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">We care for you!</div>
+            <div class="serviceCount">
+                Patient turn-up - Feb 2025: <span>+476</span>
+            </div>
+            <button>
+                <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+            </button>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Health checkup</div>
+            <div class="serviceCount">
+                Health checkups 2023: <span>+988</span>
+            </div>
+            <button>
+                <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+            </button>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Our nursing department</div>
+            <div class="serviceCount">
+                Health related conditions 2025 stats: <span>-196</span>
+            </div>
+            <button>
+                <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+            </button>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Our experienced doctors</div>
+            <div class="serviceCount">Verified and recommended: <span>2025</span></div>
+            <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;"><button>Book Now</button></a>
+        </div>
+
+        <div class="box">
+            <div class="cardImage"></div>
+            <div class="serviceTitle">Consult us today</div>
+            <div class="serviceCount">
+                Be the first among our patients: <span>+10393</span>
+            </div>
+            <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;"><button>Book Now</button></a>
+        </div>
+    </div>
+</section>
+{% endblock services %}

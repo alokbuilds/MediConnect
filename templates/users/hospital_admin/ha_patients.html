@@ -1,0 +1,25 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+{% block title %} Patients list - Admin {% endblock %}
+{% block content %}
+<h4>Patients</h4>
+<table class="table table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in patients %}
+        <tr>
+            <td>{{ p.patient_id }}</td>
+            <td>{{ p.user.get_full_name }}</td>
+            <td>{{ p.phone }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,205 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+{% load static %}
+
+{% block title %}Hospital Reports{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="fw-bold mb-4">Hospital Reports</h3>
+
+    <!-- SUMMARY CARDS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Total Doctors</h6>
+                    <h3 class="fw-bold">{{ total_doctors }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Approved Doctors</h6>
+                    <h3 class="fw-bold text-success">{{ approved_doctors }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Total Patients</h6>
+                    <h3 class="fw-bold">{{ total_patients }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Total Appointments</h6>
+                    <h3 class="fw-bold">{{ total_appointments }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- APPOINTMENT STATUS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card border-warning shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Completed Appointments</h6>
+                    <h3 class="fw-bold text-primary">{{ completed_appointments }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-warning shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Pending Appointments</h6>
+                    <h3 class="fw-bold text-warning">{{ pending_appointments }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-success shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Approved Appointments</h6>
+                    <h3 class="fw-bold text-success">{{ approved_appointments }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-danger shadow-sm">
+                <div class="card-body text-center">
+                    <h6>Cancelled Appointments</h6>
+                    <h3 class="fw-bold text-danger">{{ cancelled_appointments }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RECENT APPOINTMENTS -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header fw-bold">Recent Appointments</div>
+        <div class="card-body table-responsive">
+
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Appt. ID</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for a in recent_appointments %}
+                    <tr>
+                        <td>{{ a.appointment_id }}</td>
+                        <td>{{ a.patient.user.username }}</td>
+                        <td>{{ a.doctor.user.username }}</td>
+                        <td>{{ a.status|title }}</td>
+                        <td>{{ a.created_at|date:"d M Y" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            No data found
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- RECENT DOCTORS -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header fw-bold">Recent Doctors</div>
+        <div class="card-body table-responsive">
+
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Appt. ID</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for a in recent_appointments %}
+                    <tr>
+                        <td>{{ a.appointment_id }}</td>
+                        <td>{{ a.patient.user.username }}</td>
+                        <td>{{ a.doctor.user.username }}</td>
+                        <td>{{ a.status|title }}</td>
+                        <td>{{ a.created_at|date:"d M Y" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            No data found
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- RECENT PATIENTS -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header fw-bold">Recent Patients</div>
+        <div class="card-body table-responsive">
+
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Appt. ID</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for a in recent_appointments %}
+                    <tr>
+                        <td>{{ a.appointment_id }}</td>
+                        <td>{{ a.patient.user.username }}</td>
+                        <td>{{ a.doctor.user.username }}</td>
+                        <td>{{ a.status|title }}</td>
+                        <td>{{ a.created_at|date:"d M Y" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            No data found
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

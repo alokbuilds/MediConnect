@@ -1,0 +1,56 @@
+{% extends "users/patient/p_base.html" %}
+{% block content %}
+
+        <h4 class="b-4">Doctors List</h4>
+        <table class="table table-bordered table-hover mt-3">
+            <thead class="table-primary">
+                <tr>
+                    <th>Doctor ID</th>
+                    <th>Name</th>
+                    <th>Qualification</th>
+                    <th>Specialization</th>
+                    <th>Experience</th>
+                    <th>Availability</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.doctor_id }}</td>
+                    <td>Dr. {{ doctor.user.get_full_name }}</td>
+                    <td>{{ doctor.qualification }}</td>
+                    <td>{{ doctor.specialization }}</td>
+                    <td>{{ doctor.experience }} yrs</td>
+                    <td>
+                        {% if doctor.is_active %}
+                            <span class="text-success fw-bold">Available</span>
+                    </td>
+                    <td>
+                                <a href="{% url 'patient_book_appointment' %}"
+                                class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-calendar-plus"></i> Book
+                                </a>                       
+                    </td>
+                        {% else %}
+                            <span class="text-danger fw-bold">Not Available</span>
+                    </td>
+                    <td>
+                                <a href="#"
+                                class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-ban text-danger"></i> NA
+                                </a>                      
+                    </td>
+                        {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        No doctors available
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

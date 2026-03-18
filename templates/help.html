@@ -1,0 +1,186 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Services{% endblock title %}
+{% block CustomCSS %}
+{% endblock CustomCSS %}
+
+{% block help %}
+<section class="container-fluid" id="help">
+    <div class="container py-4">
+        <!-- PAGE HEADER -->
+        <div class="text-center mb-5">
+            <h2 class="sectionTitle" style="margin-bottom: 16px;">Help and Support</h2>
+            <p class="text-muted fs-5">
+                We’re here to assist you every step of the way
+            </p>
+        </div>
+
+
+        <!-- INTRO -->
+        <div class="card shadow-sm p-4 mb-5">
+            <p class="mb-0">
+                At MediConnect, we are committed to providing a smooth and hassle-free
+                experience for all users. This Help & Support section is designed to
+                assist patients and doctors with common questions, technical issues,
+                and guidance on using the platform effectively.
+            </p>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div class="mb-5">
+            <h3 class="text-primary mb-3">Frequently Asked Questions (FAQs)</h3>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How do I book an appointment?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            Log in as a patient, go to the dashboard, select “Book Appointment,”
+                            choose a doctor, select date and time, and submit the form.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Can I cancel or reschedule an appointment?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Appointment cancellation or rescheduling depends on system settings.
+                            Please contact support for assistance if required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            How can doctors view their appointments?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Doctors can log in to their dashboard and click on
+                            “View Appointments” to see all scheduled patient visits.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            Is my personal and medical data secure?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Yes, MediConnect follows secure data handling practices to
+                            ensure the privacy and safety of user information.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            What should I do if I forget my password?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            Please contact the system administrator or support team
+                            for password recovery assistance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUPPORT SECTIONS -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm p-4 h-100">
+                    <h4 class="text-primary">Support for Patients</h4>
+                    <ul>
+                        <li>Appointment booking issues</li>
+                        <li>Login and account problems</li>
+                        <li>Viewing appointment status</li>
+                        <li>General platform navigation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm p-4 h-100">
+                    <h4 class="text-primary">Support for Doctors</h4>
+                    <ul>
+                        <li>Appointment scheduling</li>
+                        <li>Viewing patient details</li>
+                        <li>Updating appointment status</li>
+                        <li>Managing doctor profiles</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TECHNICAL SUPPORT -->
+        <div class="card shadow-sm p-4 mb-5">
+            <h4 class="text-primary">Technical Support</h4>
+            <p>
+                If you experience technical issues such as website errors, login failures,
+                booking problems, or unexpected system behavior, please contact our
+                technical support team with detailed information about the issue.
+            </p>
+        </div>
+
+        <!-- CONTACT SUPPORT -->
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 text-center">
+                    <h6>Email</h6>
+                    <p class="mb-0">support@mediconnect.com</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 text-center">
+                    <h6>Phone</h6>
+                    <p class="mb-0">+91-9123456789</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 text-center">
+                    <h6>Working Hours</h6>
+                    <p class="mb-0">Mon – Sat | 9:00 AM – 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEEDBACK -->
+        <div class="card shadow-sm p-4 mb-5">
+            <h4 class="text-primary">Feedback & Suggestions</h4>
+            <p>
+                We value your feedback. If you have suggestions to improve MediConnect
+                or wish to report a problem, please feel free to share your thoughts.
+                Your feedback helps us improve our services.
+            </p>
+        </div>
+
+        <!-- CLOSING NOTE -->
+        <div class="text-center p-4 bg-light rounded shadow-sm">
+            <h5 class="text-primary">Need More Help?</h5>
+            <p class="mb-0">
+                Our Help & Support team is always ready to assist you and ensure
+                a smooth experience on MediConnect.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock help %}

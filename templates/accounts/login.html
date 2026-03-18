@@ -1,0 +1,167 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block CustomCSS %}
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f2ff, #f9fbff);
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .login-header {
+            color: #38465bff;
+            padding-top: 24px;
+            text-align: center;
+        }
+
+        .login-header h2 {
+            color: #635994;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-family: Impact, Charcoal, sans-serif;
+        }
+
+        .login-body {
+            padding: 30px;
+        }
+
+        .form-control, .form-select {
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .btn-login {
+            height: 45px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 576px) {
+            .login-body {
+                padding: 20px;
+            }
+        }
+    </style>
+{% endblock CustomCSS %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-7 col-lg-6 col-xl-5">
+
+            <div class="login-card mt-5">
+
+                <!-- Header -->
+                <div class="login-header">
+                    <img src="{% static 'media\icons\mediconnect-icon.png' %}" width="37" height="37" alt="Logo">
+                        <h2><span style="color: #45c5fd; font-family: Impact, Charcoal, sans-serif; font-weight: 500;">Medi</span>Connect</h2>
+                    <span class="text-muted small">Login to your account</span>
+                </div>
+
+                <!-- Body -->
+                <div class="login-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="message mb-4 {% if message.tags == 'success' %}message-success{% elif message.tags == 'error' %}message-error{% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'login' %}" id="loginForm">
+                        {% csrf_token %}
+
+                        <!-- User Type -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" for="id_user_type">Login As</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-users fa-xs"></i></span>
+                                <select name="user_type" id="id_user_type" class="form-select" required>
+                                    <option value="" selected disabled>-- Select Role --</option>
+                                    <option value="patient">Patient</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="hospital_admin">Hospital Admin</option>
+                                    <option value="django_admin">Django Admin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" for="id_username">Username or Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                                <input type="text" name="username" id="id_username" class="form-control" placeholder="Enter username" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold" for="id_password">Password</label>
+                            <a href="#" class="text-decoration-none text-primary float-end">Forgot Password?</a>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" name="password" id="id_password" class="form-control" placeholder="Enter password" required autocomplete="off">
+                                <span class="input-group-text toggle-password" id="togglePassword">
+                                    <i class="bi bi-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Remember -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label text-muted" for="rememberMe">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary btn-login">
+                                <i class="bi bi-box-arrow-in-right"></i> Login
+                            </button>
+                        </div>
+
+                        <!-- Links -->
+                        <div class="text-center footer-text">
+                            <span class="text-muted">New Patient or Doctor?</span>
+                            <a href="{% url 'register' %}" class="text-decoration-none fw-semibold">
+                                Create Account
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="text-center text-muted mt-3 small">
+                © 2026 MediConnect | Secure Digital Healthcare
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
+{% block CustomJS %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock CustomJS %}

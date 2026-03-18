@@ -1,0 +1,37 @@
+{% extends "users/doctor/d_base.html" %}
+
+{% block title %}Medical Records{% endblock %}
+
+{% block content %}
+<h4 class="fw-bold mb-3">Medical Records</h4>
+
+{% if patients %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in patients %}
+        <tr>
+            <td>{{ p.patient_id }}</td>
+            <td>{{ p.user.first_name }} {{ p.user.last_name }}</td>
+            <td>
+                <a href="{% url 'doctor_patient_medical_record_detail' p.id %}"
+                   class="btn btn-sm btn-outline-primary">
+                    View Record
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">
+    No medical records available.
+</div>
+{% endif %}
+{% endblock %}

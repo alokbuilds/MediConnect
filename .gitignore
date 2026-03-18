@@ -1,0 +1,54 @@
+############################
+# Virtual Environment
+############################
+venv/
+.env/
+
+############################
+# Python cache files
+############################
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+############################
+# Django specific
+############################
+db.sqlite3
+staticfiles/
+media/
+
+############################
+# Static images (global)
+############################
+static/images/
+
+############################
+# Logs
+############################
+*.log
+
+############################
+# Environment & Secrets
+############################
+.env
+.env.*
+
+############################
+# IDE / Editor
+############################
+.vscode/
+.idea/
+
+############################
+# OS files
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Migrations (optional – agar clean repo chahte ho)
+############################
+# MediConnectApp/migrations/*.py
+# !MediConnectApp/migrations/__init__.py

@@ -1,0 +1,35 @@
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-left">
+            <h4>MediConnect</h4>
+            <p>
+                MediConnect is a smart doctor appointment and hospital
+                management system designed to simplify healthcare services.
+            </p>
+        </div>
+
+        <div class="footer-center">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-right">
+            <h4>Contact</h4>
+            <p>Email: support@mediconnect.com</p>
+            <p>Phone: +91 90000 00000</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            © {{ year|default:"2026" }} MediConnect. All Rights Reserved.
+        </p>
+    </div>
+</footer>

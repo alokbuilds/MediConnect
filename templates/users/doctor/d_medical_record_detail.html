@@ -1,0 +1,45 @@
+{% extends "users/doctor/d_base.html" %}
+
+{% block title %}Patient Medical Record{% endblock %}
+
+{% block content %}
+<h4 class="fw-bold mb-3">
+    Medical Record – {{ patient.user.first_name }} {{ patient.user.last_name }}
+</h4>
+
+<!-- Appointments -->
+<h5 class="mt-4">Appointments</h5>
+{% if appointments %}
+<ul class="list-group mb-4">
+    {% for ap in appointments %}
+    <li class="list-group-item">
+        {{ ap.appointment_date }} | {{ ap.status }}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">No appointments found.</p>
+{% endif %}
+
+<!-- Prescriptions -->
+<h5>Prescriptions</h5>
+{% if prescriptions %}
+<ul class="list-group">
+    {% for pr in prescriptions %}
+    <li class="list-group-item">
+        <strong>Date:</strong> {{ pr.created_at|date:"d M Y" }} <br>
+        <strong>Diagnosis:</strong> {{ pr.diagnosis }} <br>
+        <strong>Medicines:</strong> {{ pr.medicines }} <br>
+        <strong>Notes:</strong> {{ pr.notes }}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">No prescriptions available.</p>
+{% endif %}
+
+<a href="{% url 'doctor_medical_records' %}"
+   class="btn btn-secondary mt-3">
+    Back
+</a>
+{% endblock %}

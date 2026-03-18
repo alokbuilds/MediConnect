@@ -1,0 +1,54 @@
+{% extends "users/patient/p_base.html" %}
+
+{% block title %}My Prescriptions{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h4 class="fw-bold mb-3">My Prescriptions</h4>
+
+    {% if prescriptions %}
+        <div class="row">
+            {% for p in prescriptions %}
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+
+                            <h6 class="fw-bold mb-2">
+                                Doctor: {{ p.doctor.user.first_name }} {{ p.doctor.user.last_name }}
+                            </h6>
+
+                            <p class="mb-1">
+                                <strong>Date:</strong> {{ p.created_at|date:"d M Y" }}
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Diagnosis:</strong><br>
+                                {{ p.diagnosis }}
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Medicines:</strong><br>
+                                {{ p.medicines }}
+                            </p>
+
+                            {% if p.notes %}
+                                <p class="mb-0">
+                                    <strong>Notes:</strong><br>
+                                    {{ p.notes }}
+                                </p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No prescriptions found.
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

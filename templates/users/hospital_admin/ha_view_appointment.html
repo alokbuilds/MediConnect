@@ -1,0 +1,52 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+
+{% block title %}Appointment Details{% endblock %}
+
+{% block content %}
+
+<h4 class="fw-bold mb-3">Appointment Details</h4>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <p><strong>Appointment ID:</strong> {{ appointment.appointment_d }}</p>
+
+        <p><strong>Patient:</strong>
+            {{ appointment.patient.user.first_name }}
+            {{ appointment.patient.user.last_name }}
+        </p>
+
+        <p><strong>Doctor:</strong>
+            {{ appointment.doctor.user.first_name }}
+            {{ appointment.doctor.user.last_name }}
+        </p>
+
+        <p><strong>Date:</strong> {{ appointment.appointment_date }}</p>
+        <p><strong>Time:</strong> {{ appointment.appointment_time }}</p>
+
+        <p><strong>Status:</strong>
+            {% if appointment.status == "pending" %}
+                <span class="badge bg-warning text-dark">Pending</span>
+            {% elif appointment.status == "approved" %}
+                <span class="badge bg-success">Approved</span>
+            {% elif appointment.status == "completed" %}
+                <span class="badge bg-primary">Completed</span>
+            {% elif appointment.status == "cancelled" %}
+                <span class="badge bg-danger">Cancelled</span>
+            {% endif %}
+        </p>
+
+        <p><strong>Created At:</strong> {{ appointment.created_at }}</p>
+
+        {% if appointment.notes %}
+            <p><strong>Notes:</strong> {{ appointment.notes }}</p>
+        {% endif %}
+
+        <a href="{% url 'hospital_admin_appointments' %}" class="btn btn-secondary mt-3">
+            Back
+        </a>
+
+    </div>
+</div>
+
+{% endblock %}

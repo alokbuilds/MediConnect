@@ -1,0 +1,137 @@
+{% extends "users/hospital_admin/ha_base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-semibold">
+                    <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
+                </h4>
+                <span class="badge bg-success px-3 py-2">
+                    Welcome, Admin {{ user.first_name }}
+                </span>
+            </div>
+            <!-- SUMMARY CARDS -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="card dashboard-card shadow-sm text-center p-3">
+                        <i class="bi bi-person-badge fs-3 text-primary"></i>
+                        <h6 class="mt-2">Total Doctors</h6>
+                        <h4>{{total_doctors}}</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card dashboard-card shadow-sm text-center p-3">
+                        <i class="bi bi-people fs-3 text-success"></i>
+                        <h6 class="mt-2">Total Patients</h6>
+                        <h4>{{total_patients}}</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card dashboard-card shadow-sm text-center p-3">
+                        <i class="bi bi-calendar-event fs-3 text-warning"></i>
+                        <h6 class="mt-2">Total Appointments</h6>
+                        <h4>{{total_appointments}}</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card dashboard-card shadow-sm text-center p-3">
+                        <i class="bi bi-x-circle fs-3 text-danger"></i>
+                        <h6 class="mt-2">Cancelled Appointments</h6>
+                        <h4>{{cancelled_appointments}}</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- MANAGEMENT SECTION -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header fw-bold">
+                            Doctor Management
+                        </div>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-outline-primary w-100 mb-2">Approve / Reject Doctors</a>
+                            <a href="#" class="btn btn-outline-secondary w-100 mb-2">Activate / Deactivate Doctors</a>
+                            <a href="#" class="btn btn-outline-dark w-100">Doctor List</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header fw-bold">
+                            Appointment Management
+                        </div>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-outline-success w-100 mb-2">All Appointments</a>
+                            <a href="#" class="btn btn-outline-danger w-100 mb-2">Cancelled Appointments</a>
+                            <a href="#" class="btn btn-outline-info w-100">Analytics & Reports</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- RECENT APPOINTMENTS -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-white fw-semibold">
+                    Recent Appointments
+                </div>
+
+                <div class="card-body table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for appointment in recent_appointments %}
+                            <tr>
+                                <td>{{ appointment.patient }}</td>
+                                <td>{{ appointment.doctor }}</td>
+                                <td>{{ appointment.appointment_date }}</td>
+                                <td>
+                                    {% if appointment.status == 'approved' %}
+                                        <span class="badge bg-success">Approved</span>
+                                    {% elif appointment.status == 'pending' %}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    {% elif appointment.status == 'completed' %}
+                                        <span class="badge bg-success text-dark">Completed</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Cancelled</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-primary">View</a>
+                                    <a href="#" class="btn btn-sm btn-outline-danger">Cancel</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">
+                                    No recent appointments
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+{% endblock content %}

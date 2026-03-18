@@ -1,0 +1,96 @@
+{% extends "users/patient/p_base.html" %}
+{% load static %}
+{% block title %}My Appointments-Patient{% endblock %}
+
+{% block CustomCSS %}
+    <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+{% endblock CustomCSS %}
+{% block content %}
+
+<h4>My Appointments</h4>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="message mb-4 
+    {% if message.tags == 'success' %}message-success
+    {% elif message.tags == 'error' %}message-error
+    {% elif message.tags == 'warning' %}message-warning
+    {% elif message.tags == 'info' %}message-info
+    {% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+
+<table class="table table-bordered mt-3">
+    <thead class="table-primary">
+        <tr>
+            <th>Appt. ID</th>
+            <th>Create on</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.appointment_id }}</td>
+            <td>{{ appointment.created_at|date:"d M Y" }}</td>
+            <td>Dr. {{ appointment.doctor.user.get_full_name }}</td>
+            <td>{{ appointment.appointment_date }}</td>
+            <td>{{ appointment.appointment_time }}</td>
+                {% if appointment.status == "approved" %}
+                    <td><span class="badge bg-success">Approved</span></td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                    </td>
+                {% elif appointment.status == "completed" %}
+                    <td><span class="badge bg-primary">Completed</span></td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                    </td>
+                {% elif appointment.status == "cancelled"%}
+                    <td><span class="badge bg-danger">Cancelled</span></td>
+                    <td>
+                        <a href="#"
+                        class="btn btn-sm btn-outline-danger"
+                        onclick="return confirm('Not Allowed');">
+                            <i class="bi bi-ban"></i> NA
+                        </a>
+                    </td>
+                {% else %}
+                    <td><span class="badge bg-warning text-dark">Pending</span></td>
+                <td>
+                    <a href="{% url 'cancel_appointment' appointment.id %}"
+                    class="btn btn-sm btn-outline-danger"
+                    onclick="return confirm('Cancel this appointment?');">
+                        <i class="bi bi-x-circle"></i> Cancel
+                    </a>
+                </td>
+                {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center text-muted">No appointments found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div style="margin-top:30px;">
+    <a href="javascript:history.back()" class="btn btn-secondary">
+        Go Back
+    </a>
+    &nbsp;
+    <a href="{% url 'patient_dashboard' %}" class="btn btn-primary">
+        Go Home
+    </a>
+</div>
+{% endblock %}

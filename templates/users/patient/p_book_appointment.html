@@ -1,0 +1,94 @@
+{% extends "users/patient/p_base.html" %}
+{% block title %}Book Appointment{% endblock %}
+
+{% block content %}
+
+<h4 class="fw-bold mb-4">Book Appointment</h4>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="message mb-4 
+    {% if message.tags == 'success' %}message-success
+    {% elif message.tags == 'error' %}message-error
+    {% elif message.tags == 'warning' %}message-warning
+    {% elif message.tags == 'info' %}message-info
+    {% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- Doctor Select -->
+    <div class="mb-3">
+        <label class="form-label">Doctor</label>
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-person-badge"></i>
+            </span>
+            <select name="doctor" class="form-select" required>
+                <option value="">-- Select Doctor --</option>
+                {% for d in doctors %}
+                    <option value="{{ d.id }}">
+                        {{ d.user.first_name }} {{ d.user.last_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Appointment Date -->
+    <div class="mb-3">
+        <label class="form-label">Appointment Date</label>
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-calendar"></i>
+            </span>
+            <input type="date" name="appointment_date"
+                min="{{ today_date }}"
+                max="{{ max_date }}"
+                class="form-control" required>
+        </div>
+    </div>
+
+    <!-- Appointment Time -->
+    <div class="mb-3">
+        <label class="form-label" for="id_appointment_time">Appointment Time</label>
+        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-clock"></i>
+            </span>
+            <select name="appointment_time" id="id_appointment_time"
+                    class="form-select" required>
+                <option value="">-- Select Time Slot --</option>
+
+                <option value="09:00">09:00 AM</option>
+                <option value="09:30">09:30 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="10:30">10:30 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="11:30">11:30 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="12:30">12:30 PM</option>
+                <option value="13:00">01:00 PM</option>
+                <option value="13:30">01:30 PM</option>
+                <option value="16:00">04:00 PM</option>
+                <option value="16:30">04:30 PM</option>
+                <option value="17:00">05:00 PM</option>
+                <option value="17:30">05:30 PM</option>
+                <option value="18:00">06:00 PM</option>
+
+            </select>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-check-circle"></i> Book Appointment
+    </button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% load static %}
+
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="/" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="MediConnect" height="40">
+            <span>MediConnect</span>
+        </a>
+    </div>
+
+    <div class="navbar-right">
+        {% if user.is_authenticated %}
+
+            <span class="welcome-text">
+                Welcome, {{ user.username }}
+            </span>
+
+            {% if user.is_staff %}
+                <!-- Hospital Admin -->
+                <a href="{% url 'hospital_admin_dashboard' %}">Admin Dashboard</a>
+
+            {% elif user.groups.all.0.name == "Doctor" %}
+                <!-- Doctor -->
+                <a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a>
+
+            {% else %}
+                <!-- Patient -->
+                <a href="{% url 'patient_dashboard' %}">Patient Dashboard</a>
+            {% endif %}
+
+            <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}" class="btn-register">Register</a>
+        {% endif %}
+    </div>
+</nav>

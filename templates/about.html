@@ -1,0 +1,183 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}About Us{% endblock title %}
+{% block CustomCSS %}
+{% endblock CustomCSS %}
+
+{% block about-us %}
+<section class="fullContainer" id="about">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h2 class="sectionTitle" style="margin-bottom: 16px;">About 🩺MediConnect</h2>
+            <p class="text-muted fs-5">
+                Bridging Patients and Doctors through Digital Healthcare
+            </p>
+        </div>
+        <!-- WHO WE ARE -->
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="card shadow-sm p-4">
+                    <h3 class="text-primary mb-3">Who We Are</h3>
+                    <p>
+                        MediConnect is a smart and reliable healthcare appointment management platform
+                        designed to simplify the way patients connect with doctors. Our goal is to make
+                        healthcare accessible, efficient, and stress-free through digital innovation.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MISSION & VISION -->
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm p-4 h-100">
+                    <h4 class="text-primary">Our Mission</h4>
+                    <p>
+                        To bridge the gap between patients and healthcare professionals by providing
+                        a seamless, secure, and user-friendly appointment booking system that saves
+                        time and improves healthcare access for everyone.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm p-4 h-100">
+                    <h4 class="text-primary">Our Vision</h4>
+                    <p>
+                        To become a trusted digital healthcare solution that empowers patients,
+                        supports doctors, and contributes to a healthier society through
+                        technology-driven services.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHAT WE DO -->
+        <div class="card shadow-sm p-4 mb-5">
+            <h3 class="text-primary mb-3">What We Do</h3>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>For Patients</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Book doctor appointments online</li>
+                        <li class="list-group-item">Choose doctors by speciality</li>
+                        <li class="list-group-item">Avoid long waiting queues</li>
+                        <li class="list-group-item">Manage appointments easily</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h5>For Doctors</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Manage appointments efficiently</li>
+                        <li class="list-group-item">Organize patient schedules</li>
+                        <li class="list-group-item">Improve patient communication</li>
+                        <li class="list-group-item">Digitize daily practice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHY CHOOSE US -->
+        <div class="row mb-5">
+            <h3 class="text-primary mb-3">Why Choose MediConnect</h3>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 text-center">
+                    <h5>User-Friendly</h5>
+                    <p>Simple and intuitive interface for all users.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 text-center">
+                    <h5>Secure & Reliable</h5>
+                    <p>Strong data protection and privacy measures.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm p-3 text-center">
+                    <h5>Modern Technology</h5>
+                    <p>Built using Django and Bootstrap.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUR VALUES -->
+        <div class="card shadow-sm p-4 mb-5">
+            <h3 class="text-primary mb-3">Our Values</h3>
+
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="card shadow-sm p-3 text-center">
+                        <h6>Care</h6>
+                        <p>Patient well-being <br>comes first</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow-sm p-3 text-center">
+                        <h6>Trust</h6>
+                        <p>Transparent and <br>secure services</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow-sm p-3 text-center">
+                        <h6>Innovation</h6>
+                        <p>Technology-driven improvement</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow-sm p-3 text-center">
+                        <h6>Efficiency</h6>
+                        <p>Fast and reliable <br>healthcare solutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLOSING -->
+        <div class="text-center p-4 bg-light rounded shadow-sm">
+            <h4 class="text-primary">Our Commitment</h4>
+            <p class="mb-0">
+                At MediConnect, we believe quality healthcare should be accessible to everyone.
+                By connecting patients and doctors digitally, we are building a smarter and
+                healthier future.
+            </p>
+        </div>
+
+        <div class="cards">
+            <div class="bookBox">
+                <div class="title">See a doctor</div>
+                <p>Booking doctor appointments has never been easier. 
+                    Experience the convenience that comes with booking your doctor 
+                    appointments online.
+                </p>
+                <button>
+                    <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Book Now</a>
+                </button>
+            </div>
+    
+            <div class="joinBox">
+                <div class="title">Become an Ambassador</div>
+                <p>Join us on this journey towards better health services, 
+                    one appointment at a time. Together, we can make a difference in the world of healthcare.
+                </p>
+                <button>
+                    <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Join us</a>
+                </button>
+            </div>
+    
+            <div class="supportBox">
+                <div class="title">Rate 🩺MediConnect</div>
+                <p>We can't offer better services without your inputs. We value them, all.
+                </p>
+                <button>
+                    <a href="{% url 'login' %}" style="color: inherit; text-decoration: none;">Review</a>
+                </button>
+            </div> 
+        </div>
+    </div>
+</section>
+{% endblock about-us %}
