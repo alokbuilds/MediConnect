@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+ALLOWED_HOSTS = ['*']
+
+
 
 # Application definition
 
@@ -135,3 +138,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
