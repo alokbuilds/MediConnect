@@ -82,6 +82,23 @@ WSGI_APPLICATION = 'MediConnect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+"""
+
+#Mysql database configuration
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mediconnect_db',
+        'USER': 'root',
+        'PASSWORD': 'Alok@123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+"""
+
+# For simplicity, we are using SQLite for development. In production, consider using PostgreSQL or MySQL.
+# SQLite configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
