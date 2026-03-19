@@ -22,7 +22,7 @@ media/
 ############################
 # Static images (global)
 ############################
-#static/media/
+static/media/
 
 ############################
 # Logs
