@@ -17,7 +17,6 @@ __pycache__/
 ############################
 db.sqlite3
 staticfiles/
-media/
 
 ############################
 # Static images (global)
