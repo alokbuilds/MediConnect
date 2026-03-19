@@ -16,7 +16,6 @@ __pycache__/
 # Django specific
 ############################
 db.sqlite3
-staticfiles/
 
 ############################
 # Static images (global)
