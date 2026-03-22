@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MediConnectApp',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 AUTHENTICATION_BACKENDS=[
     'django.contrib.auth.backends.ModelBackend'
