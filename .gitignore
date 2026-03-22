@@ -17,12 +17,12 @@ __pycache__/
 ############################
 db.sqlite3
 staticfiles/
-media/
+#media/
 
 ############################
 # Static images (global)
 ############################
-static/media/
+#static/media/
 
 ############################
 # Logs
