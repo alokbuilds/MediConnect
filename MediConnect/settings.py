@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -88,6 +89,15 @@ DATABASES = {
     }
 }
 
+
+# ========================
+# DATABASE (PostgreSQL for production)
+# ========================
+DATABASES = {
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL')
+    )
+}
 
 # ========================
 # PASSWORD VALIDATION
