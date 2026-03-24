@@ -12,9 +12,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
 DEBUG = True
 
 #ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-#ALLOWED_HOSTS = ['*']
-
-ALLOWED_HOSTS = ['mediconnect-xjx0.onrender.com']
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "mediconnect-xjx0.onrender.com"
+]
 
 
 # ========================
