@@ -27,17 +27,6 @@ def contact_View(request):
     return render(request, "contact.html")
 
 
-def create_admin(request):
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser(
-            username="admin",
-            email="admin@gmail.com",
-            password="admin123"
-        )
-        return HttpResponse("Admin Created ✅")
-    return HttpResponse("Already Exists")
-
-
 
 # -------------------------------
 # REGISTER (PATIENT/DOCTOR/ADMIN)

@@ -19,12 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from MediConnectApp.views import create_admin
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include("MediConnectApp.urls")),
-    path('create-admin/', create_admin)
+    path('',include("MediConnectApp.urls"))
 ]
 
 # if settings.DEBUG:
