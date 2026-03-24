@@ -1,16 +1,6 @@
 /* Common style start*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-
-@media only screen and (min-width:200px) and (max-width: 575px) {
-    .services .boxContainer {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    
-}
-
 body {
     background-color: #f4f8fb;
     font-family: "Segoe UI", sans-serif;
@@ -58,13 +48,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Segoe UI', sans-serif;
 }
-
-
-
-
-
-
-
 
 p {
     font-size: 15px;
@@ -286,15 +269,41 @@ section {
     cursor: pointer;
 }
 
-/* ================= MOBILE & TABLET RESPONSIVE CSS ================= */
-/* Tablet */
+/* ================= TABLET RESPONSIVE ================= */
 @media (max-width: 992px) {
+
+    /* Grid → 2 columns */
     .services .boxContainer {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    /* Image thoda chhota */
+    .services .boxContainer .box .cardImage {
+        height: 250px;
+    }
+
+    /* Text adjust */
+    .services .boxContainer .box .serviceTitle {
+        font-size: 15px;
+    }
+
+    .services .boxContainer .box .serviceCount {
+        font-size: 13px;
+    }
+
+    /* Button thoda upar */
+    .services .boxContainer .box button {
+        bottom: -16px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        margin-top: 10px;
     }
 }
 
-/* Mobile */
+/* ================= MOBILE & TABLET RESPONSIVE CSS ================= */
+
 @media (max-width: 576px) {
     .services .boxContainer {
         grid-template-columns: 1fr;
@@ -304,10 +313,6 @@ section {
     }
     .services .boxContainer .box button {
         bottom: -16px;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%);
-        margin-top: 10px;
     }
     .services .boxContainer .box .serviceTitle {
         font-size: 14px;
