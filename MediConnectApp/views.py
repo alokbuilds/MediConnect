@@ -1,20 +1,14 @@
 from datetime import timedelta, datetime, date
-from urllib import request
 from django.shortcuts import render, redirect, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
 from MediConnectApp.models import PatientProfile, DoctorProfile, HospitalAdminProfile, Speciality, Appointment, MedicalRecord, Prescription, DoctorAvailability
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
-from .utils import get_user_role
-# test change
-
+#from .utils import get_user_role
 
 #---------------Home Page-----------------------------------
 def home(request):
@@ -1560,62 +1554,15 @@ def logout_view(request):
 
 #-------------------Create your views here----------------------------------------------------------
 
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+def create_admin(request):
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "admin@gmail.com", "admin123")
+        return HttpResponse("Admin created")
+    return HttpResponse("Admin already exists")
 
 
 
 
-
-
-
-
-
-
-'''
-@login_required(login_url="login")
-def hospital_admin_dashboard_view(request):
-    user = request.user
-
-    # Check hospital admin authorization
-    if not hasattr(user, "hospitaladminprofile"):
-        messages.error(request, "You are not authorized to access this page.")
-        return redirect("login")
-
-    hospital_admin = user.hospitaladminprofile
-
-    # Dashboard counts
-    total_doctors = DoctorProfile.objects.count()
-    approved_doctors = DoctorProfile.objects.filter(is_approved=True).count()
-
-    total_patients = PatientProfile.objects.count()
-    total_appointments = Appointment.objects.count()
-
-    pending_appointments = Appointment.objects.filter(status="pending").count()
-
-    # Recent data (optional but useful)
-    recent_doctors = DoctorProfile.objects.order_by("-created_at")[:5]
-    recent_patients = PatientProfile.objects.order_by("-created_at")[:5]
-    recent_appointments = Appointment.objects.order_by("-created_at")[:5]
-
-    context = {
-        "hospital_admin": hospital_admin,
-
-        "total_doctors": total_doctors,
-        "approved_doctors": approved_doctors,
-
-        "total_patients": total_patients,
-        "total_appointments": total_appointments,
-        "pending_appointments": pending_appointments,
-
-        "recent_doctors": recent_doctors,
-        "recent_patients": recent_patients,
-        "recent_appointments": recent_appointments,
-    }
-
-    return render(
-        request,
-        "hospital_admin/dashboard/hospital_admin_dashboard.html",
-        context
-    )
-
-
-'''
