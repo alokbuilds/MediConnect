@@ -174,6 +174,25 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # ========================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+################################################################
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mediconnect-xjx0.onrender.com"
+]
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+
+
+
+
+
+
 
 
 
