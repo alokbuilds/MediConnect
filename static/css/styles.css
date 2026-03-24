@@ -293,11 +293,10 @@ section {
 
     /* Button thoda upar */
     .services .boxContainer .box button {
-        bottom: -16px;
+        bottom: 5px;
         position: absolute;
         left: 50%;
         transform: translate(-50%);
-        margin-top: 10px;
     }
 }
 
@@ -311,7 +310,10 @@ section {
         height: 200px;
     }
     .services .boxContainer .box button {
-        bottom: -16px;
+        bottom: 5px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
     }
     .services .boxContainer .box .serviceTitle {
         font-size: 14px;
