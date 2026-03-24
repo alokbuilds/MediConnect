@@ -2,6 +2,10 @@ from django.urls import path
 from MediConnectApp import views #from MediConnectApp import views
 
 urlpatterns = [
+
+
+    path('create-admin/', views.create_admin),
+
     path('', views.home, name="home"),
 
     # Authentication
