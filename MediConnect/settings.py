@@ -9,12 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ========================
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
 
-# DEBUG = True
-# ALLOWED_HOSTS = ['*']
-
 DEBUG = True
-ALLOWED_HOSTS = ['mediconnect-xjx0.onrender.com']
 
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+#ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['mediconnect-xjx0.onrender.com']
 
 
 # ========================
