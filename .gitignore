@@ -2,12 +2,13 @@
 # Virtual Environment
 ############################
 venv/
-.env/
+.venv/
+env/
 
 ############################
 # Python cache files
 ############################
-__pycache__/
+**pycache**/
 *.pyc
 *.pyo
 *.pyd
@@ -17,12 +18,7 @@ __pycache__/
 ############################
 db.sqlite3
 staticfiles/
-#media/
-
-############################
-# Static images (global)
-############################
-#static/media/
+media/
 
 ############################
 # Logs
@@ -48,7 +44,19 @@ staticfiles/
 Thumbs.db
 
 ############################
-# Migrations (optional – agar clean repo chahte ho)
+# Node (if used later)
 ############################
-# MediConnectApp/migrations/*.py
-# !MediConnectApp/migrations/__init__.py
+node_modules/
+
+############################
+# Build / temp files
+############################
+*.tmp
+*.bak
+*.swp
+
+############################
+# Migrations (optional)
+############################
+#MediConnectApp/migrations/*.py
+#!MediConnectApp/migrations/**init**.py
