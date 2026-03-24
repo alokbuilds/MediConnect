@@ -167,6 +167,10 @@ def login_view(request):
 
         # Step 1: Authenticate user
         user = authenticate(request, username=username, password=password)
+        print("USERNAME:", username)
+        print("PASSWORD:", password)
+
+        print("AUTH USER:", user)
 
         if user is None:
             messages.error(request, "Invalid username or password")
