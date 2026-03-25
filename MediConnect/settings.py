@@ -2,8 +2,6 @@ import os
 from pathlib import Path
 import dj_database_url
 
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ========================
@@ -13,16 +11,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
     raise Exception("SECRET_KEY not set")
 
-
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-#ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "mediconnect-xjx0.onrender.com"
 ]
-
 
 # ========================
 # APPLICATIONS
@@ -45,7 +40,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend'
 ]
 
-
 # ========================
 # MIDDLEWARE
 # ========================
@@ -61,7 +55,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 # ========================
 # URLS & TEMPLATES
 # ========================
@@ -70,10 +63,7 @@ ROOT_URLCONF = 'MediConnect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
-        # ✅ FIXED
         'DIRS': [BASE_DIR / "templates"],
-
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,27 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MediConnect.wsgi.application'
 
-
 # ========================
-# DATABASE CONFIGURATION (PostgreSQL for production, SQLite fallback)
-# ========================
-# if os.environ.get('DATABASE_URL'):
-#     DATABASES = {
-#         'default': dj_database_url.config(
-#             default=os.environ.get('DATABASE_URL'),
-#             conn_max_age=600
-#         )
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-
-# ========================
-# DATABASE CONFIGURATION (PostgreSQL using dj_database_url)
+# DATABASE
 # ========================
 DATABASES = {
     'default': dj_database_url.config(
@@ -120,12 +91,11 @@ DATABASES = {
 # PASSWORD VALIDATION
 # ========================
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
 
 # ========================
 # INTERNATIONALIZATION
@@ -135,21 +105,17 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 
-
 # ========================
-# STATIC FILES (IMPORTANT 🔥)
+# STATIC FILES
 # ========================
 STATIC_URL = '/static/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# ✅ Production optimization
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 # ========================
 # MEDIA (Cloudinary)
@@ -160,38 +126,25 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', ''),
 }
 
-# 🔍 Check if Cloudinary configured
 if not os.environ.get("CLOUDINARY_CLOUD_NAME"):
     print("⚠️ Cloudinary not configured")
-    
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # ========================
 # DEFAULT PRIMARY KEY
 # ========================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # ========================
 # SECURITY SETTINGS 🔐
 # ========================
-
-# Force HTTPS (important on Render)
-SECURE_SSL_REDIRECT = True
-
-# Tell Django that request is secure (proxy ke through)
+SECURE_SSL_REDIRECT = not DEBUG
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# CSRF trusted origins (your domain)
 CSRF_TRUSTED_ORIGINS = [
     "https://mediconnect-xjx0.onrender.com"
 ]
 
-# Cookies only over HTTPS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-
-
-
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
