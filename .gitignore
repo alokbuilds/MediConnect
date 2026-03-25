@@ -8,7 +8,7 @@ env/
 ############################
 # Python cache files
 ############################
-**pycache**/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
