@@ -183,7 +183,7 @@ def login_view(request):
 
         # 🔹 Hospital Admin (Sub Admin)
         if role == "django_admin":
-            return redirect("/admin/" or "https://mediconnect-xjx0.onrender.com/admin/")
+            return redirect("https://mediconnect-xjx0.onrender.com/admin/" or "/admin/")
 
         # 🔹 Hospital Admin (Sub Admin)
         elif role == "hospital_admin":
