@@ -1,14 +1,13 @@
 from datetime import timedelta, datetime, date
-from django.shortcuts import render, redirect, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from MediConnectApp.models import PatientProfile, DoctorProfile, HospitalAdminProfile, Speciality, Appointment, MedicalRecord, Prescription, DoctorAvailability
-from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
-#from .utils import get_user_role
+from .utils import get_user_role
 
 
 #---------------Home Page-----------------------------------
@@ -157,70 +156,6 @@ def register_view(request):
 #Role-based Login
 def login_view(request):
     if request.method == "POST":
-        user_type = request.POST.get("user_type")  # patient / doctor / Hospital Admin / django_admin
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-
-        # Step 1: Authenticate user
-        user = authenticate(request, username=username, password=password)
-
-        if user is None:
-            messages.error(request, "Invalid username or password")
-            return redirect("login")
-
-        # Step 2: Check if user is active
-        if not user.is_active:
-            messages.error(request, "Your account is deactivated")
-            return redirect("login")
-
-        # Step 3: Role-based login
-        login(request, user)
-
-        # 🔹 Django Super Admin
-        if user.is_superuser:
-            if user_type != "django_admin":
-                messages.error(request, "Please select correct role (Django Admin)")
-                return redirect("login")
-            return redirect("/admin/")
-
-        # 🔹 Hospital Admin (Sub Admin)
-        elif user.is_staff and not user.is_superuser:
-            if user_type != "hospital_admin":
-                messages.error(request, "Please select correct role (hospital Admin)")
-                return redirect("login")
-        
-            elif not user.hospitaladminprofile.is_approved:
-                messages.error(request, "Hospital admin account not approved yet. Please wait for Super Admin approval.")
-                return redirect("login")
-            
-            elif not user.hospitaladminprofile.is_active:
-                messages.error(
-                    request, 
-                    "Hospital admin account is blocked. Contact to Super Admin."
-                )
-                return redirect("login")
-            return redirect("hospital_admin_dashboard")
-
-
-
-        # 🔹 Doctor
-        elif user_type == "doctor":
-            return redirect("doctor_dashboard")
-
-        # 🔹 Patient
-        elif user_type == "patient":
-            return redirect("patient_dashboard")
-
-        else:
-            messages.error(request, "Invalid user role selected")
-            return redirect("login")
-
-    return render(request, "accounts/login.html")
-
-
-'''
-def login_view(request):
-    if request.method == "POST":
 
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -289,8 +224,6 @@ def login_view(request):
             return redirect("login")
 
     return render(request, "accounts/login.html")
-
-'''
 
 
 #----------------------------# # # # # # # # # # # # #----------------------------#
@@ -1254,13 +1187,6 @@ def doctor_profile_settings_view(request):
         "users/doctor/d_profile_settings.html",
         context
     )
-
-
-
-
-
-
-
 
 
 
