@@ -1,5 +1,5 @@
 from django.urls import path
-from MediConnectApp import views #from MediConnectApp import views
+from . import views #from MediConnectApp import views
 
 urlpatterns = [    
     path('', views.home, name="home"),
