@@ -10,6 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # ========================
 SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise Exception("SECRET_KEY not set")
+
+
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 #ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
@@ -107,7 +111,7 @@ WSGI_APPLICATION = 'MediConnect.wsgi.application'
 # ========================
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
+        default=os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
         conn_max_age=600
     )
 }
@@ -116,18 +120,10 @@ DATABASES = {
 # PASSWORD VALIDATION
 # ========================
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 
@@ -164,6 +160,10 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', ''),
 }
 
+# 🔍 Check if Cloudinary configured
+if not os.environ.get("CLOUDINARY_CLOUD_NAME"):
+    print("⚠️ Cloudinary not configured")
+    
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
@@ -172,18 +172,25 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # ========================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-################################################################
 
+# ========================
+# SECURITY SETTINGS 🔐
+# ========================
+
+# Force HTTPS (important on Render)
+SECURE_SSL_REDIRECT = True
+
+# Tell Django that request is secure (proxy ke through)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# CSRF trusted origins (your domain)
 CSRF_TRUSTED_ORIGINS = [
     "https://mediconnect-xjx0.onrender.com"
 ]
 
+# Cookies only over HTTPS
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 
 
