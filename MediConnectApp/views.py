@@ -172,56 +172,69 @@ def login_view(request):
             messages.error(request, "Your account is deactivated")
             return redirect("login")
 
-        # 3️⃣ Login (session create)
+        # 3️⃣ Login
         login(request, user)
 
-        # 4️⃣ ROLE AUTO-DETECTION FROM DB
+        # 4️⃣ Get role safely
         role = get_user_role(user)
 
+        if role is None:
+            messages.error(request, "No role assigned to this account")
+            return redirect("login")
 
-        # 5️⃣ Role-based redirect
+        # ================================
+        # 🔹 ROLE BASED REDIRECTION
+        # ================================
 
-        # 🔹 Hospital Admin (Sub Admin)
+        # 🟣 Django Admin
         if role == "django_admin":
             return redirect("admin:index")
 
-        # 🔹 Hospital Admin (Sub Admin)
+        # 🏥 Hospital Admin
         elif role == "hospital_admin":
-            if not user.hospitaladminprofile.is_approved:
-                messages.error(request, "Hospital admin account not approved yet. Please wait for Super Admin approval.")
+            try:
+                profile = user.hospitaladminprofile
+            except:
+                messages.error(request, "Hospital admin profile not found")
                 return redirect("login")
-            
-            elif not user.hospitaladminprofile.is_active:
-                messages.error(
-                    request, 
-                    "Hospital admin account is blocked. Contact to Super Admin."
-                )
+
+            if not profile.is_approved:
+                messages.error(request, "Hospital admin not approved yet")
                 return redirect("login")
+
+            if not profile.is_active:
+                messages.error(request, "Hospital admin is blocked")
+                return redirect("login")
+
             return redirect("hospital_admin_dashboard")
 
-        # 🔹 Doctor
+        # 👨‍⚕️ Doctor
         elif role == "doctor":
-            if not user.doctorprofile.is_approved:
-                messages.error(
-                    request,
-                    "Doctor account not approved yet. Please wait for Hospital Admin or Super Admin approval."
-                )
+            try:
+                profile = user.doctorprofile
+            except:
+                messages.error(request, "Doctor profile not found")
                 return redirect("login")
-            elif not user.doctorprofile.is_active:
-                messages.error(
-                    request,
-                    "Doctor account is blocked. Contact to Hospital Admin or Super Admin."
-                )
+
+            if not profile.is_approved:
+                messages.error(request, "Doctor not approved yet")
                 return redirect("login")
+
+            if not profile.is_active:
+                messages.error(request, "Doctor is blocked")
+                return redirect("login")
+
             return redirect("doctor_dashboard")
 
-        # 🔹 Patient
+        # 🧑 Patient
         elif role == "patient":
-            return redirect("patient_dashboard")
+            try:
+                profile = user.patientprofile
+            except:
+                messages.error(request, "Patient profile not found")
+                return redirect("login")
 
-        else:
-            messages.error(request, "No role assigned to this account")
-            return redirect("login")
+            return redirect("patient_dashboard")
 
     return render(request, "accounts/login.html")
 
