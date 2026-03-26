@@ -135,7 +135,7 @@ CLOUDINARY_STORAGE = {
 }
 
 if not os.environ.get("CLOUDINARY_CLOUD_NAME"):
-    print("⚠️ Cloudinary not configured")
+    print("Cloudinary not configured")
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
