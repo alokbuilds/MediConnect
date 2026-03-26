@@ -134,9 +134,6 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', ''),
 }
 
-if not os.environ.get("CLOUDINARY_CLOUD_NAME"):
-    print("Cloudinary not configured")
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # ========================
