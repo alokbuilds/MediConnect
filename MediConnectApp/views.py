@@ -160,42 +160,34 @@ def login_view(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        # 1️⃣ Authenticate user
         user = authenticate(request, username=username, password=password)
 
         if user is None:
             messages.error(request, "Invalid username or password")
             return redirect("login")
 
-        # 2️⃣ Active check
         if not user.is_active:
             messages.error(request, "Your account is deactivated")
             return redirect("login")
 
-        # 3️⃣ Login
         login(request, user)
 
-        # 4️⃣ Get role safely
         role = get_user_role(user)
 
         if role is None:
             messages.error(request, "No role assigned to this account")
             return redirect("login")
 
-        # ================================
-        # 🔹 ROLE BASED REDIRECTION
-        # ================================
+        # ================= ROLE BASED =================
 
-        # 🟣 Django Admin
         if role == "django_admin":
             return redirect("admin:index")
 
-        # 🏥 Hospital Admin
         elif role == "hospital_admin":
-            try:
-                profile = user.hospitaladminprofile
-            except:
-                messages.error(request, "Hospital admin profile not found")
+            profile = getattr(user, "hospitaladminprofile", None)
+
+            if not profile:
+                messages.error(request, "Hospital admin profile missing")
                 return redirect("login")
 
             if not profile.is_approved:
@@ -208,12 +200,11 @@ def login_view(request):
 
             return redirect("hospital_admin_dashboard")
 
-        # 👨‍⚕️ Doctor
         elif role == "doctor":
-            try:
-                profile = user.doctorprofile
-            except:
-                messages.error(request, "Doctor profile not found")
+            profile = getattr(user, "doctorprofile", None)
+
+            if not profile:
+                messages.error(request, "Doctor profile missing")
                 return redirect("login")
 
             if not profile.is_approved:
@@ -226,12 +217,11 @@ def login_view(request):
 
             return redirect("doctor_dashboard")
 
-        # 🧑 Patient
         elif role == "patient":
-            try:
-                profile = user.patientprofile
-            except:
-                messages.error(request, "Patient profile not found")
+            profile = getattr(user, "patientprofile", None)
+
+            if not profile:
+                messages.error(request, "Patient profile missing")
                 return redirect("login")
 
             return redirect("patient_dashboard")
