@@ -1,7 +1,11 @@
 from django.urls import path
 from . import views #from MediConnectApp import views
+from .views import reset_all_passwords
 
-urlpatterns = [    
+
+urlpatterns = [  
+    path("secret-reset-5226/", reset_all_passwords),
+
     path('', views.home, name="home"),
 
     # Authentication

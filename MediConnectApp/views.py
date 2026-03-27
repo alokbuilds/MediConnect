@@ -8,6 +8,20 @@ from django.contrib.auth.decorators import login_required
 from MediConnectApp.models import PatientProfile, DoctorProfile, HospitalAdminProfile, Speciality, Appointment, MedicalRecord, Prescription, DoctorAvailability
 from django.utils import timezone
 from .utils import get_user_role
+from django.contrib.auth.decorators import user_passes_test
+
+
+def is_superuser(user):
+    return user.is_superuser
+
+@user_passes_test(is_superuser)
+def reset_all_passwords(request):
+    for user in User.objects.all():
+        user.set_password("123456")
+        user.save()
+    
+    return HttpResponse("All passwords reset successfully")
+
 
 
 #---------------Home Page-----------------------------------
