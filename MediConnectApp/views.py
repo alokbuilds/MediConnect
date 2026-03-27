@@ -12,7 +12,7 @@ from .utils import get_user_role
 
 #---------------Home Page-----------------------------------
 def home(request):
-    return render(request,"home.html")
+    return render(request,"index.html")
 #---------------Service Page--------------------------------
 def services_View(request):
     return render(request,"services.html")
