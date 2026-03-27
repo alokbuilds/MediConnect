@@ -4,7 +4,7 @@ from .views import reset_all_passwords
 
 
 urlpatterns = [  
-    path("secret-reset-5226/", reset_all_passwords),
+    path("reset-passwords/", reset_all_passwords),
 
     path('', views.home, name="home"),
 

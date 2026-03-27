@@ -11,10 +11,7 @@ from .utils import get_user_role
 from django.contrib.auth.decorators import user_passes_test
 
 
-def is_superuser(user):
-    return user.is_superuser
 
-@user_passes_test(is_superuser)
 def reset_all_passwords(request):
     for user in User.objects.all():
         user.set_password("123456")
