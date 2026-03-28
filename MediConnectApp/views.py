@@ -298,7 +298,7 @@ def patient_dashboard_view(request):
         "recent_appointments": recent_appointments,
     }
 
-    return render(request, "users/patient/p_dashboard.html", context)
+    return render(request, "users/patient/p_dashboard.html/", context)
 
 #-------------------------
 # BASE CHECK FUNCTION FOR PATIENT (REUSE LOGIC)
