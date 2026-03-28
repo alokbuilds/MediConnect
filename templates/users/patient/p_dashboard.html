@@ -114,7 +114,13 @@
                             <tr>
                                 <td>{{ appt.appointment_id }}</td>
                                 <td>Dr. {{ appt.doctor.user.first_name }}</td>
-                                <td>{{ appt.doctor.specialization.name }}</td>
+                                <td>
+                                    {% if appt.doctor.specialization %}
+                                        {{ appt.doctor.specialization.name }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
                                 <td>{{ appt.appointment_date }}</td>
                                 <td>{{ appt.appointment_time }}</td>
                                 <td>
