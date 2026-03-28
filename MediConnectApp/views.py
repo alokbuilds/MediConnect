@@ -186,34 +186,27 @@ def login_view(request):
         role = get_user_role(user)
 
         if role is None:
-            messages.error(request, "No role assigned to this account")
+            messages.error(request, "No role assigned")
             return redirect("login")
 
         # ================= ROLE BASED =================
 
-        # 🟣 Django Admin
         if role == "django_admin":
             return redirect("admin:index")
 
-        # 🏥 Hospital Admin
         elif role == "hospital_admin":
             profile = getattr(user, "hospitaladminprofile", None)
 
             if not profile:
-                messages.error(request, "Hospital admin profile missing")
+                messages.error(request, "Hospital profile missing")
                 return redirect("login")
 
             if not profile.is_approved:
-                messages.error(request, "Hospital admin not approved yet")
-                return redirect("login")
-
-            if not profile.is_active:
-                messages.error(request, "Hospital admin is blocked")
+                messages.error(request, "Not approved")
                 return redirect("login")
 
             return redirect("hospital_admin_dashboard")
 
-        # 👨‍⚕️ Doctor
         elif role == "doctor":
             profile = getattr(user, "doctorprofile", None)
 
@@ -222,29 +215,16 @@ def login_view(request):
                 return redirect("login")
 
             if not profile.is_approved:
-                messages.error(request, "Doctor not approved yet")
-                return redirect("login")
-
-            if not profile.is_active:
-                messages.error(request, "Doctor is blocked")
+                messages.error(request, "Not approved")
                 return redirect("login")
 
             return redirect("doctor_dashboard")
 
-        # 🧑 Patient
         elif role == "patient":
             profile = getattr(user, "patientprofile", None)
 
             if not profile:
                 messages.error(request, "Patient profile missing")
-                return redirect("login")
-
-            # 🔥 EXTRA SAFETY (important)
-            # try accessing once to avoid dashboard crash
-            try:
-                _ = profile.id
-            except:
-                messages.error(request, "Patient profile corrupted")
                 return redirect("login")
 
             return redirect("patient_dashboard")
