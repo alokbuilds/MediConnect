@@ -191,9 +191,11 @@ def login_view(request):
 
         # ================= ROLE BASED =================
 
+        # 🟣 Django Admin
         if role == "django_admin":
             return redirect("admin:index")
 
+        # 🏥 Hospital Admin
         elif role == "hospital_admin":
             profile = getattr(user, "hospitaladminprofile", None)
 
@@ -211,6 +213,7 @@ def login_view(request):
 
             return redirect("hospital_admin_dashboard")
 
+        # 👨‍⚕️ Doctor
         elif role == "doctor":
             profile = getattr(user, "doctorprofile", None)
 
@@ -228,11 +231,20 @@ def login_view(request):
 
             return redirect("doctor_dashboard")
 
+        # 🧑 Patient
         elif role == "patient":
             profile = getattr(user, "patientprofile", None)
 
             if not profile:
                 messages.error(request, "Patient profile missing")
+                return redirect("login")
+
+            # 🔥 EXTRA SAFETY (important)
+            # try accessing once to avoid dashboard crash
+            try:
+                _ = profile.id
+            except:
+                messages.error(request, "Patient profile corrupted")
                 return redirect("login")
 
             return redirect("patient_dashboard")
@@ -253,7 +265,7 @@ def patient_dashboard_view(request):
     user = request.user
 
     # Check if logged-in user has PatientProfile
-    if not hasattr(user, 'patientprofile'):
+    if not hasattr(user, 'patientprofile', None):
         messages.error(request, "You are not authorized to access Patient Dashboard.")
         return redirect('login')
 
