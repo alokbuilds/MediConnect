@@ -265,11 +265,16 @@ def patient_dashboard_view(request):
     user = request.user
 
     # Check if logged-in user has PatientProfile
-    if not hasattr(user, 'patientprofile', None):
+    if not hasattr(user, 'patientprofile'):
         messages.error(request, "You are not authorized to access Patient Dashboard.")
         return redirect('login')
 
-    patient = user.patientprofile
+    try:
+        patient = user.patientprofile
+    except:
+        messages.error(request, "Patient profile error")
+        return redirect('login')
+
     today = timezone.now().date()
 
     # ---------------- COUNTS ----------------
