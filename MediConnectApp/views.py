@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from MediConnectApp.models import PatientProfile, DoctorProfile, HospitalAdminProfile, Speciality, Appointment, MedicalRecord, Prescription, DoctorAvailability
 from django.utils import timezone
 from .utils import get_user_role
-from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -242,49 +242,32 @@ def login_view(request):
 # -------------------------
 @login_required(login_url='login')
 def patient_dashboard_view(request):
-    user = request.user
-
-    # Check if logged-in user has PatientProfile
-    if not hasattr(user, 'patientprofile'):
-        messages.error(request, "You are not authorized to access Patient Dashboard.")
-        return redirect('login')
-
     try:
-        patient = user.patientprofile
-    except:
-        messages.error(request, "Patient profile error")
+        patient = request.user.patientprofile
+    except PatientProfile.DoesNotExist:
+        messages.error(request, "You are not authorized to access Patient Dashboard.")
         return redirect('login')
 
     today = timezone.now().date()
 
-    # ---------------- COUNTS ----------------
+    total_appointments = Appointment.objects.filter(patient=patient).count()
 
-    # Total appointments
-    total_appointments = Appointment.objects.filter(
-        patient=patient
-    ).count()
-
-    # Upcoming appointments (approved & future date)
     upcoming_appointments = Appointment.objects.filter(
         patient=patient,
         status="approved",
         appointment_date__gte=today
     ).count()
 
-    # Completed appointments
     completed_appointments = Appointment.objects.filter(
         patient=patient,
         status="completed"
     ).count()
 
-    # Pending prescriptions
-    # (Assumption: prescription field future me add hoga)
     pending_prescriptions = Appointment.objects.filter(
         patient=patient,
         status="completed",
     ).count()
 
-    # Recent appointments (last 5)
     recent_appointments = Appointment.objects.filter(
         patient=patient
     ).order_by('-created_at')[:5]
@@ -298,7 +281,7 @@ def patient_dashboard_view(request):
         "recent_appointments": recent_appointments,
     }
 
-    return render(request, "/users/patient/p_dashboard.html/", context)
+    return render(request, "users/patient/p_dashboard.html", context)
 
 #-------------------------
 # BASE CHECK FUNCTION FOR PATIENT (REUSE LOGIC)
