@@ -16,7 +16,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "mediconnect-xjx0.onrender.com"
+    "mediconnect-alok.onrender.com"
 ]
 
 # ========================
@@ -153,7 +153,7 @@ SECURE_SSL_REDIRECT = not DEBUG
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://mediconnect-xjx0.onrender.com"
+    "https://mediconnect-alok.onrender.com"
 ]
 
 SESSION_COOKIE_SECURE = not DEBUG
