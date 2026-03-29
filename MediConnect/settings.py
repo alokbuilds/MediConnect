@@ -14,9 +14,9 @@ if not SECRET_KEY:
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",
+    "mediconnect-alok.onrender.com",
     "localhost",
-    "mediconnect-alok.onrender.com"
+    "127.0.0.1",
 ]
 
 # ========================
