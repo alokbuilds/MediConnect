@@ -153,7 +153,7 @@ SECURE_SSL_REDIRECT = not DEBUG
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://mediconnect-alok.onrender.com"
+    "https://mediconnect-alok-maxl.onrender.com"
 ]
 
 SESSION_COOKIE_SECURE = not DEBUG
