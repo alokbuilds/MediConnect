@@ -13,12 +13,12 @@ if not SECRET_KEY:
 
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-# ALLOWED_HOSTS = [
-#     "mediconnect-alok.onrender.com",
-#     "localhost",
-#     "127.0.0.1",
-# ]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "medionnect-alokbuilds.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
 # ========================
 # APPLICATIONS
 # ========================
@@ -153,7 +153,7 @@ SECURE_SSL_REDIRECT = not DEBUG
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://mediconnect-alok-maxl.onrender.com"
+    "https://medionnect-alokbuilds.onrender.com"
 ]
 
 SESSION_COOKIE_SECURE = not DEBUG
