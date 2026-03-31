@@ -1,0 +1,291 @@
+
+body {
+    background-color: #f9fffd;
+}
+
+/* Loader Styles (Loading Spinner) */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+#loader::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 5px solid #ddd;
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Navbar */
+.navbar {
+    background-color: #68ae8a !important;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.nav-icon {
+    position: relative;
+    color: white;
+    text-decoration: none;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* 🌙 DARK MODE FULL */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Dark mode toggle button */
+body.dark-mode #themeToggle {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode #themeToggle:hover {
+    background-color: #444;
+}
+
+/* Navbar */
+body.dark-mode .navbar {
+    background-color: #1a1a1a !important;
+}
+
+/* Sidebar */
+body.dark-mode .sidebar {
+    background: #0d0d0d;
+}
+
+/* Sidebar links */
+body.dark-mode .nav-link-custom {
+    color: #ddd;
+}
+
+body.dark-mode .nav-link-custom:hover {
+    background: #333;
+}
+
+body.dark-mode .nav-link-custom.active {
+    background: #2f97ff;
+}
+
+/* Cards */
+body.dark-mode .card,
+body.dark-mode .dashboard-card,
+body.dark-mode .action-card {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+/* Card titles */
+body.dark-mode .card-title,
+body.dark-mode .dashboard-card h4 {
+    color: #fff;
+}
+
+
+/* 🌙 DARK MODE - Recent Appointments Table */
+
+/* 🌙 Dark mode - card header fix */
+
+body.dark-mode .card-header.bg-white {
+    background-color: #1a1a1a !important;
+    color: #fff !important;
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode .custom-table {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+/* Header */
+body.dark-mode .custom-table thead {
+    background-color: #000;
+}
+
+/* Rows */
+body.dark-mode .custom-table tbody tr {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+/* Cells */
+body.dark-mode .custom-table td,
+body.dark-mode .custom-table th {
+    background-color: transparent;
+    color: #fff;
+}
+
+/* Hover */
+body.dark-mode .custom-table tbody tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* ---Message Styles----- */
+.message-container {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.message {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.message-success {
+    background-color: #d1f5d3;
+    color: #4caf50;
+}
+
+.message-error {
+    background-color: #f8d7da;
+    color: #b12130;
+}
+
+.message-warning{
+    background-color: #fffbed;
+    color: #ff9800;
+}
+
+.message-info{
+    background-color: #e0f2fe;
+    color: #03a9f4; 
+}
+
+/* Sidebar */
+.sidebar {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #015f1c, #013f12);
+    padding-top: 20px;
+}
+
+/* Links */
+.nav-link-custom {
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+/* Hover effect */
+.nav-link-custom:hover {
+    background: #198754;
+    transform: translateX(5px);
+}
+
+/* Active link */
+.nav-link-custom.active {
+    background: #2f97ff;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Icons */
+.nav-link-custom i {
+    font-size: 16px;
+}
+
+/* Cards */
+.dashboard-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.card-title {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.dashboard-card h4 {
+    font-weight: 700;
+    color: #333;
+}
+
+.card-icon {
+    font-size: 30px;
+}
+
+/* Quick Actions */
+.action-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.action-card i {
+    font-size: 22px;
+    color: #2f97ff;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Recent Appointments */
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
