@@ -212,27 +212,27 @@
                 <i class="bi bi-speedometer2 me-2"></i> Dashboard
             </a>
 
-            <a href="{% url 'patient_book_appointment' %}" class="nav-link-custom">
+            <a href="{% url 'patient_book_appointment' %}" class="nav-link-custom {% if request.path == '/patient/book-appointment/' %}active{% endif %}">
                 <i class="bi bi-calendar-plus me-2"></i> Book Appointment
             </a>
 
-            <a href="{% url 'patient_my_appointments' %}" class="nav-link-custom">
+            <a href="{% url 'patient_my_appointments' %}" class="nav-link-custom {% if request.path == '/patient/my-appointments/' %}active{% endif %}">
                 <i class="bi bi-calendar-check me-2"></i> My Appointments
             </a>
 
-            <a href="{% url 'patient_doctors' %}" class="nav-link-custom">
+            <a href="{% url 'patient_doctors' %}" class="nav-link-custom {% if request.path == '/patient/doctors/' %}active{% endif %}">
                 <i class="bi bi-people me-2"></i> Doctors
             </a>
 
-            <a href="{% url 'patient_medical_records' %}" class="nav-link-custom">
+            <a href="{% url 'patient_medical_records' %}" class="nav-link-custom {% if request.path == '/patient/medical-records/' %}active{% endif %}">
                 <i class="bi bi-file-medical me-2"></i> Records
             </a>
 
-            <a href="{% url 'patient_prescriptions' %}" class="nav-link-custom">
+            <a href="{% url 'patient_prescriptions' %}" class="nav-link-custom {% if request.path == '/patient/prescriptions/' %}active{% endif %}">
                 <i class="bi bi-capsule me-2"></i> Prescriptions
             </a>
 
-            <a href="{% url 'patient_profile' %}" class="nav-link-custom">
+            <a href="{% url 'patient_profile' %}" class="nav-link-custom {% if request.path == '/patient/profile/' %}active{% endif %}">
                 <i class="bi bi-gear me-2"></i> Settings
             </a>
 
