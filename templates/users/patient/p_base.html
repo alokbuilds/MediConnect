@@ -113,11 +113,31 @@
 
         /* Cards */
         .dashboard-card {
-            transition: 0.3s;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .dashboard-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-card h4 {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .card-icon {
+            font-size: 30px;
         }
 
         /* Navbar */

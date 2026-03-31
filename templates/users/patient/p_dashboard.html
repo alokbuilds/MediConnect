@@ -16,35 +16,60 @@
             </span>
         </div>
         <!-- SUMMARY CARDS -->
-        <div class="row g-3 mb-4">
+        <div class="row g-4 mb-4">
+
+            <!-- Total -->
             <div class="col-md-6 col-lg-3">
-                <div class="card dashboard-card shadow-sm text-center p-3">
-                    <i class="bi bi-calendar fs-3 text-primary"></i>
-                    <h6 class="mt-2">Total Appointments</h6>
-                    <h4>{{ total_appointments }}</h4>
+                <div class="dashboard-card p-3 border-start border-4 border-primary">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="card-title">Total Appointments</p>
+                            <h4>{{ total_appointments }}</h4>
+                        </div>
+                        <i class="bi bi-calendar2-check card-icon text-primary"></i>
+                    </div>
                 </div>
             </div>
+
+            <!-- Upcoming -->
             <div class="col-md-6 col-lg-3">
-                <div class="card dashboard-card shadow-sm text-center p-3">
-                    <i class="bi bi-clock fs-3 text-warning"></i>
-                    <h6 class="mt-2">Upcoming</h6>
-                    <h4>{{upcoming_appointments}}</h4>
+                <div class="dashboard-card p-3 border-start border-4 border-warning">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="card-title">Upcoming</p>
+                            <h4>{{ upcoming_appointments }}</h4>
+                        </div>
+                        <i class="bi bi-clock card-icon text-warning"></i>
+                    </div>
                 </div>
             </div>
+
+            <!-- Completed -->
             <div class="col-md-6 col-lg-3">
-                <div class="card dashboard-card shadow-sm text-center p-3">
-                    <i class="bi bi-check-circle fs-3 text-success"></i>
-                    <h6 class="mt-2">Completed</h6>
-                    <h4>{{completed_appointments}}</h4>
+                <div class="dashboard-card p-3 border-start border-4 border-success">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="card-title">Completed</p>
+                            <h4>{{ completed_appointments }}</h4>
+                        </div>
+                        <i class="bi bi-check-circle card-icon text-success"></i>
+                    </div>
                 </div>
             </div>
+
+            <!-- Prescriptions -->
             <div class="col-md-6 col-lg-3">
-                <div class="card dashboard-card shadow-sm text-center p-3">
-                    <i class="bi bi-capsule fs-3 text-danger"></i>
-                    <h6 class="mt-2">Pending Prescriptions</h6>
-                    <h4>{{ pending_prescriptions }}</h4>
+                <div class="dashboard-card p-3 border-start border-4 border-danger">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="card-title">Prescriptions</p>
+                            <h4>{{ pending_prescriptions }}</h4>
+                        </div>
+                        <i class="bi bi-capsule card-icon text-danger"></i>
+                    </div>
                 </div>
             </div>
+
         </div>
 
 
