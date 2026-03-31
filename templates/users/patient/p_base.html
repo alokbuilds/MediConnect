@@ -94,21 +94,40 @@
         /* Sidebar */
         .sidebar {
             min-height: 100vh;
-            background: #015f1c;
+            background: linear-gradient(180deg, #015f1c, #013f12);
+            padding-top: 20px;
         }
 
-        .sidebar a {
+        /* Links */
+        .nav-link-custom {
             color: #fff;
             text-decoration: none;
             padding: 12px 15px;
-            display: block;
-            border-radius: 6px;
-            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
         }
 
-        .sidebar a:hover,
-        .sidebar a.active {
+        /* Hover effect */
+        .nav-link-custom:hover {
             background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        /* Active link */
+        .nav-link-custom.active {
+            background: #2f97ff;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Icons */
+        .nav-link-custom i {
+            font-size: 16px;
         }
 
         /* Cards */
@@ -186,13 +205,37 @@
 
         <!-- SIDEBAR -->
         <div class="col-md-3 col-lg-2 sidebar p-3">
-            <a href="{% url 'patient_dashboard' %}" class="active"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
-            <a href="{% url 'patient_book_appointment' %}"><i class="bi bi-calendar-plus me-2"></i>Book Appointment</a>
-            <a href="{% url 'patient_my_appointments' %}"><i class="bi bi-calendar-check me-2"></i>My Appointments</a>
-            <a href="{% url 'patient_doctors' %}"><i class="bi bi-people me-2"></i>Doctors List</a>
-            <a href="{% url 'patient_medical_records' %}"><i class="bi bi-file-medical me-2"></i>Medical Records</a>
-            <a href="{% url 'patient_prescriptions' %}"><i class="bi bi-capsule me-2"></i>Prescriptions</a>
-            <a href="{% url 'patient_profile' %}"><i class="bi bi-gear me-2"></i>Profile Settings</a>
+
+            <h6 class="text-white-50 mb-3 ps-2">MENU</h6>
+
+            <a href="{% url 'patient_dashboard' %}" class="nav-link-custom {% if request.path == '/patient/dashboard/' %}active{% endif %}">
+                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+            </a>
+
+            <a href="{% url 'patient_book_appointment' %}" class="nav-link-custom">
+                <i class="bi bi-calendar-plus me-2"></i> Book Appointment
+            </a>
+
+            <a href="{% url 'patient_my_appointments' %}" class="nav-link-custom">
+                <i class="bi bi-calendar-check me-2"></i> My Appointments
+            </a>
+
+            <a href="{% url 'patient_doctors' %}" class="nav-link-custom">
+                <i class="bi bi-people me-2"></i> Doctors
+            </a>
+
+            <a href="{% url 'patient_medical_records' %}" class="nav-link-custom">
+                <i class="bi bi-file-medical me-2"></i> Records
+            </a>
+
+            <a href="{% url 'patient_prescriptions' %}" class="nav-link-custom">
+                <i class="bi bi-capsule me-2"></i> Prescriptions
+            </a>
+
+            <a href="{% url 'patient_profile' %}" class="nav-link-custom">
+                <i class="bi bi-gear me-2"></i> Settings
+            </a>
+
         </div>
 
         <!-- MAIN CONTENT -->
