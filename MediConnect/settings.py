@@ -78,8 +78,6 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATES['OPTIONS']['context_processors']
-'django.template.context_processors.request'
 
 WSGI_APPLICATION = 'MediConnect.wsgi.application'
 
