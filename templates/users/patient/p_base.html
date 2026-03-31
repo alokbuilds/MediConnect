@@ -21,6 +21,11 @@
             background-color: #f9fffd;
         }
 
+        /* Navbar */
+        .navbar-brand {
+            font-weight: 600;
+        }
+
         /* Loader Styles (Loading Spinner) */
         #loader {
             position: fixed;
@@ -159,9 +164,34 @@
             font-size: 30px;
         }
 
-        /* Navbar */
-        .navbar-brand {
-            font-weight: 600;
+        /* Quick Actions */
+        .action-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .action-card i {
+            font-size: 22px;
+            color: #2f97ff;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Recent Appointments */
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
         }
     </style>
 </head>

@@ -75,43 +75,36 @@
 
         <!-- Quick Actions -->
         <div class="col-12 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white fw-semibold">
-                    Quick Actions
+            <div class="row g-4">
+
+                <div class="col-md-3">
+                    <a href="{% url 'patient_book_appointment' %}" class="action-card">
+                        <i class="bi bi-calendar-plus"></i>
+                        <span>Book Appointment</span>
+                    </a>
                 </div>
-                <div class="card-body">
-                    <div class="row g-3">
 
-                        <div class="col-md-3">
-                            <a href="{% url 'patient_book_appointment' %}" class="btn btn-outline-primary w-100">
-                                <i class="bi bi-calendar-plus"></i><br>
-                                Book Appointment
-                            </a>
-                        </div>
-
-                        <div class="col-md-3">
-                            <a href="{% url 'patient_my_appointments' %}" class="btn btn-outline-success w-100">
-                                <i class="bi bi-calendar-check"></i><br>
-                                My Appointments
-                            </a>
-                        </div>
-
-                        <div class="col-md-3">
-                            <a href="{% url 'patient_doctors' %}" class="btn btn-outline-info w-100">
-                                <i class="bi bi-people"></i><br>
-                                Doctors List
-                            </a>
-                        </div>
-
-                        <div class="col-md-3">
-                            <a href="{% url 'patient_profile' %}" class="btn btn-outline-secondary w-100">
-                                <i class="bi bi-person"></i><br>
-                                Profile
-                            </a>
-                        </div>
-
-                    </div>
+                <div class="col-md-3">
+                    <a href="{% url 'patient_my_appointments' %}" class="action-card">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>My Appointments</span>
+                    </a>
                 </div>
+
+                <div class="col-md-3">
+                    <a href="{% url 'patient_doctors' %}" class="action-card">
+                        <i class="bi bi-people"></i>
+                        <span>Doctors</span>
+                    </a>
+                </div>
+
+                <div class="col-md-3">
+                    <a href="{% url 'patient_profile' %}" class="action-card">
+                        <i class="bi bi-person"></i>
+                        <span>Profile</span>
+                    </a>
+                </div>
+
             </div>
         </div>
 
@@ -121,54 +114,55 @@
                 <div class="card-header bg-white fw-semibold">
                     Recent Appointments
                 </div>
-                <div class="card-body table-responsive">
 
-                    <table class="table table-striped align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Apt. ID</th>
-                                <th>Doctor</th>
-                                <th>Specialization</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for appt in recent_appointments %}
-                            <tr>
-                                <td>{{ appt.appointment_id }}</td>
-                                <td>Dr. {{ appt.doctor.user.first_name }}</td>
-                                <td>
-                                    {% if appt.doctor.specialization %}
-                                        {{ appt.doctor.specialization.name }}
-                                    {% else %}
-                                        N/A
-                                    {% endif %}
-                                </td>
-                                <td>{{ appt.appointment_date }}</td>
-                                <td>{{ appt.appointment_time }}</td>
-                                <td>
-                                    {% if appt.status == 'completed' %}
-                                        <span class="badge bg-success">{{ appt.status }}</span>
-                                    {% elif appt.status == 'pending' %}
-                                        <span class="badge bg-warning text-dark">{{ appt.status }}</span>
-                                    {% elif appt.status == 'approved' %}
-                                        <span class="badge bg-info">{{ appt.status }}</span>
-                                    {% else %}
-                                        <span class="badge bg-danger">{{ appt.status }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="4" class="text-center text-muted">
-                                    No appointments found
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for appt in recent_appointments %}
+                                <tr>
+                                    <td>
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        Dr. {{ appt.doctor.user.first_name }}
+                                    </td>
+
+                                    <td>{{ appt.appointment_date }}</td>
+                                    <td>{{ appt.appointment_time }}</td>
+
+                                    <td>
+                                        {% if appt.status == 'approved' %}
+                                            <span class="badge bg-success">Approved</span>
+                                        {% elif appt.status == 'pending' %}
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                        {% elif appt.status == 'completed' %}
+                                            <span class="badge bg-primary">Completed</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">
+                                        No appointments found
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
 
                 </div>
             </div>
