@@ -21,11 +21,6 @@
             background-color: #f9fffd;
         }
 
-        /* Navbar */
-        .navbar-brand {
-            font-weight: 600;
-        }
-
         /* Loader Styles (Loading Spinner) */
         #loader {
             position: fixed;
@@ -60,6 +55,24 @@
             to {
                 transform: rotate(360deg);
             }
+        }
+
+        /* Navbar */
+        .nav-icon {
+            position: relative;
+            color: white;
+            text-decoration: none;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: red;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 50%;
         }       
 
         /* ---Message Styles----- */
@@ -196,38 +209,47 @@
     </style>
 </head>
 <body>
+<!-- Loader -->
 <div id="loader"></div>
 <!-- NAVBAR -->
-<nav class="sticky-md-top navbar navbar-expand-lg shadow-sm" style="background-color: #68ae8a !important;">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="{% url 'patient_dashboard' %}" style="color: #635a93; text-decoration: none; border-right-style: solid; border-right-color: #635a93; border-right-width: 1px; padding: 8px 26px 8px 5px;">
-            <img src="{% static 'media/logos/mediconnect-logo.png' %}" width="37" height="37" alt="Logo"><b><span style="color: #2f97ff;">Medi</span>Connect</b>
+<div class="d-flex align-items-center text-white fw-semibold">
+
+    <!-- 🔔 Notification Bell -->
+    <div class="dropdown me-3">
+        <a href="#" class="nav-icon" data-bs-toggle="dropdown">
+            <i class="bi bi-bell fs-5"></i>
+            <span class="notification-badge">3</span>
         </a>
-        <div class="d-flex align-items-center text-white fw-semibold">
-            <span class="me-3 small" id="clock"></span>
-            <i class="bi bi-person-circle fs-5 me-2"></i>
-            <span class="me-3">{{ user.username }}</span>
-            <ul class="navbar-nav ms-auto">
 
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'logout' %}">
-                        Logout
-                    </a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'login' %}">
-                        Login
-                    </a>
-                </li>
-                {% endif %}
-
-            </ul>
-
-        </div>
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li><h6 class="dropdown-header">Notifications</h6></li>
+            <li><a class="dropdown-item small">Appointment booked</a></li>
+            <li><a class="dropdown-item small">Doctor approved</a></li>
+            <li><a class="dropdown-item small">Prescription added</a></li>
+        </ul>
     </div>
-</nav>
+
+    <!-- 👤 Profile Dropdown -->
+    <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-5 me-2"></i>
+            <span>{{ user.username }}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li><a class="dropdown-item" href="{% url 'patient_profile' %}">
+                <i class="bi bi-person me-2"></i>Profile
+            </a></li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+            </a></li>
+        </ul>
+    </div>
+
+</div>
 
 <!-- MAIN LAYOUT -->
 <div class="container-fluid">
