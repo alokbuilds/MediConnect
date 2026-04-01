@@ -1,16 +1,53 @@
+/* =======================
+   🎨 DESIGN SYSTEM
+======================= */
 
-body {
-    background-color: #f9fffd;
+:root {
+    --bg-main: #f9fffd;
+    --bg-card: #ffffff;
+    --bg-navbar: #68ae8a;
+    --bg-sidebar: linear-gradient(180deg, #015f1c, #013f12);
+
+    --text-main: #333;
+    --text-light: #777;
+
+    --primary: #2f97ff;
+    --border: #ddd;
 }
 
-/* Loader Styles (Loading Spinner) */
+/* 🌙 DARK MODE VARIABLES */
+body.dark-mode {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --bg-navbar: #1a1a1a;
+    --bg-sidebar: #0d0d0d;
+    --bg-sidebar-hover: #585858;
+    --bg-sidebar-active: #323232;
+    --text-main: #ffffff;
+    --text-light: #bbb;
+
+    --primary: #4da3ff;
+    --border: #333;
+}
+
+/* =======================
+   🌍 GLOBAL
+======================= */
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* =======================
+   🔄 LOADER
+======================= */
+
 #loader {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background: white;
+    background: var(--bg-card);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,8 +59,8 @@ body {
     content: "";
     width: 40px;
     height: 40px;
-    border: 5px solid #ddd;
-    border-top-color: #007bff;
+    border: 5px solid var(--border);
+    border-top-color: var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -34,24 +71,20 @@ body {
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
-/* Navbar */
+/* =======================
+   🧭 NAVBAR
+======================= */
+
 .navbar {
-    background-color: #68ae8a !important;
-}
-
-.navbar-brand {
-    font-weight: 600;
+    background-color: var(--bg-navbar) !important;
 }
 
 .nav-icon {
     position: relative;
     color: white;
-    text-decoration: none;
 }
 
 .notification-badge {
@@ -65,13 +98,39 @@ body {
     border-radius: 50%;
 }
 
-/* 🌙 DARK MODE FULL */
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+/* 🌙 Dark mode - Dropdown menu */
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
 }
 
-/* Dark mode toggle button */
+/* Header */
+body.dark-mode .dropdown-header {
+    color: var(--text-light);
+}
+
+/* Items */
+body.dark-mode .dropdown-item {
+    color: var(--text-main);
+}
+
+/* Hover */
+body.dark-mode .dropdown-item:hover {
+    background-color: var(--bg-sidebar-hover);
+    color: var(--text-main);
+}
+
+/* Divider */
+body.dark-mode .dropdown-divider {
+    border-color: #444;
+}
+
+/* =======================
+   🌙 DARK MODE BUTTON
+======================= */
+
 body.dark-mode #themeToggle {
     background-color: #333;
     color: #fff;
@@ -82,93 +141,151 @@ body.dark-mode #themeToggle:hover {
     background-color: #444;
 }
 
-/* Navbar */
-body.dark-mode .navbar {
-    background-color: #1a1a1a !important;
+/* =======================
+   📌 SIDEBAR
+======================= */
+
+.sidebar {
+    min-height: 100vh;
+    background: var(--bg-sidebar);
+    padding-top: 20px;
 }
 
-/* Sidebar */
-body.dark-mode .sidebar {
-    background: #0d0d0d;
-}
-
-/* Sidebar links */
-body.dark-mode .nav-link-custom {
-    color: #ddd;
-}
-
-body.dark-mode .nav-link-custom:hover {
-    background: #333;
+.nav-link-custom {
+    color: #fff;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
 body.dark-mode .nav-link-custom.active {
-    background: #2f97ff;
+    background: var(--bg-sidebar-active);
 }
 
-/* Cards */
-body.dark-mode .card,
-body.dark-mode .dashboard-card,
-body.dark-mode .action-card {
-    background-color: #1e1e1e;
-    color: #fff;
+body.dark-mode .nav-link-custom:hover {
+    background: var(--bg-sidebar-hover);
 }
 
-/* Card titles */
-body.dark-mode .card-title,
-body.dark-mode .dashboard-card h4 {
-    color: #fff;
+.nav-link-custom:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateX(5px);
 }
 
-
-/* 🌙 DARK MODE - Recent Appointments Table */
-
-/* 🌙 Dark mode - card header fix */
-
-body.dark-mode .card-header.bg-white {
-    background-color: #1a1a1a !important;
-    color: #fff !important;
-    border-bottom: 1px solid #333;
+.nav-link-custom.active {
+    background: var(--primary);
+    font-weight: 600;
 }
 
-body.dark-mode .custom-table {
-    background-color: #1e1e1e;
-    color: #fff;
+.nav-link-custom i {
+    font-size: 16px;
 }
 
-/* Header */
-body.dark-mode .custom-table thead {
-    background-color: #000;
+/* =======================
+   🎴 CARDS
+======================= */
+
+.card,
+.dashboard-card,
+.action-card {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border-radius: 12px;
+    transition: 0.3s;
 }
 
-/* Rows */
-body.dark-mode .custom-table tbody tr {
-    background-color: #1e1e1e;
-    border-color: #333;
+/* Dashboard cards */
+.dashboard-card {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    cursor: pointer;
 }
 
-/* Cells */
-body.dark-mode .custom-table td,
-body.dark-mode .custom-table th {
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Titles */
+.card-title {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* =======================
+   ⚡ QUICK ACTIONS
+======================= */
+
+.action-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.action-card i {
+    font-size: 22px;
+    color: var(--primary);
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+/* =======================
+   📊 TABLE (CUSTOM)
+======================= */
+
+.custom-table {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table thead {
+    background-color: var(--bg-main);
+}
+
+.custom-table td,
+.custom-table th {
     background-color: transparent;
-    color: #fff;
+    color: var(--text-main);
 }
 
-/* Hover */
+.custom-table tbody tr:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
 body.dark-mode .custom-table tbody tr:hover {
     background-color: #2a2a2a;
 }
 
-/* ---Message Styles----- */
+/* =======================
+   📌 CARD HEADER FIX
+======================= */
+
+.card-header.bg-white {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border-bottom: 1px solid var(--border);
+}
+
+/* =======================
+   📢 MESSAGES
+======================= */
+
 .message-container {
     text-align: center;
     margin-bottom: 1rem;
 }
 
 .message {
-    text-align: center;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
+    padding: 8px 15px;
+    border-radius: 5px;
     font-weight: bold;
 }
 
@@ -182,110 +299,12 @@ body.dark-mode .custom-table tbody tr:hover {
     color: #b12130;
 }
 
-.message-warning{
+.message-warning {
     background-color: #fffbed;
     color: #ff9800;
 }
 
-.message-info{
+.message-info {
     background-color: #e0f2fe;
-    color: #03a9f4; 
-}
-
-/* Sidebar */
-.sidebar {
-    min-height: 100vh;
-    background: linear-gradient(180deg, #015f1c, #013f12);
-    padding-top: 20px;
-}
-
-/* Links */
-.nav-link-custom {
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-/* Hover effect */
-.nav-link-custom:hover {
-    background: #198754;
-    transform: translateX(5px);
-}
-
-/* Active link */
-.nav-link-custom.active {
-    background: #2f97ff;
-    color: #fff;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* Icons */
-.nav-link-custom i {
-    font-size: 16px;
-}
-
-/* Cards */
-.dashboard-card {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.dashboard-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-
-.card-title {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 5px;
-}
-
-.dashboard-card h4 {
-    font-weight: 700;
-    color: #333;
-}
-
-.card-icon {
-    font-size: 30px;
-}
-
-/* Quick Actions */
-.action-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.action-card i {
-    font-size: 22px;
-    color: #2f97ff;
-}
-
-.action-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* Recent Appointments */
-.table tbody tr:hover {
-    background-color: #f8f9fa;
+    color: #03a9f4;
 }
