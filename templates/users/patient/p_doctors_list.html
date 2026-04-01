@@ -1,56 +1,88 @@
 {% extends "users/patient/p_base.html" %}
+
 {% block content %}
 
-        <h4 class="b-4">Doctors List</h4>
-        <table class="table table-bordered table-hover mt-3">
-            <thead class="table-primary">
-                <tr>
-                    <th>Doctor ID</th>
-                    <th>Name</th>
-                    <th>Qualification</th>
-                    <th>Specialization</th>
-                    <th>Experience</th>
-                    <th>Availability</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for doctor in doctors %}
-                <tr>
-                    <td>{{ doctor.doctor_id }}</td>
-                    <td>Dr. {{ doctor.user.get_full_name }}</td>
-                    <td>{{ doctor.qualification }}</td>
-                    <td>{{ doctor.specialization }}</td>
-                    <td>{{ doctor.experience }} yrs</td>
-                    <td>
-                        {% if doctor.is_active %}
-                            <span class="text-success fw-bold">Available</span>
-                    </td>
-                    <td>
+<div class="page-container">
+
+    <!-- Title -->
+    <h4 class="fw-bold mb-4">
+        <i class="bi bi-people me-2"></i>
+        Doctors List
+    </h4>
+
+    <!-- Card -->
+    <div class="appointment-card">
+
+        <div class="table-responsive">
+            <table class="table custom-table align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Doctor ID</th>
+                        <th>Name</th>
+                        <th>Qualification</th>
+                        <th>Specialization</th>
+                        <th>Experience</th>
+                        <th>Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for doctor in doctors %}
+                    <tr>
+
+                        <td>{{ doctor.doctor_id }}</td>
+
+                        <td>
+                            Dr. {{ doctor.user.get_full_name }}
+                        </td>
+
+                        <td>{{ doctor.qualification }}</td>
+
+                        <td>{{ doctor.specialization }}</td>
+
+                        <td>{{ doctor.experience }} yrs</td>
+
+                        <!-- Status -->
+                        <td>
+                            {% if doctor.is_active %}
+                                <span class="badge bg-success">Available</span>
+                            {% else %}
+                                <span class="badge bg-danger">Not Available</span>
+                            {% endif %}
+                        </td>
+
+                        <!-- Action -->
+                        <td class="text-center">
+                            {% if doctor.is_active %}
                                 <a href="{% url 'patient_book_appointment' %}"
-                                class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-calendar-plus"></i> Book
-                                </a>                       
-                    </td>
-                        {% else %}
-                            <span class="text-danger fw-bold">Not Available</span>
-                    </td>
-                    <td>
-                                <a href="#"
-                                class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-ban text-danger"></i> NA
-                                </a>                      
-                    </td>
-                        {% endif %}
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center text-muted">
-                        No doctors available
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-calendar-plus"></i>
+                                </a>
+                            {% else %}
+                                <button class="btn btn-sm btn-outline-secondary" disabled>
+                                    <i class="bi bi-ban"></i>
+                                </button>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">
+                            No doctors available
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

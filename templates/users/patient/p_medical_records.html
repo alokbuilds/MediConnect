@@ -2,22 +2,55 @@
 {% block title %}Medical Records{% endblock %}
 
 {% block content %}
-<h4>Medical Records</h4>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Doctor</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="3" class="text-center text-muted">
-                No medical records available
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="page-container">
+
+    <!-- Title -->
+    <h4 class="fw-bold mb-4">
+        <i class="bi bi-file-medical me-2"></i>
+        Medical Records
+    </h4>
+
+    <!-- Card -->
+    <div class="appointment-card">
+
+        <div class="table-responsive">
+            <table class="table custom-table align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Doctor</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% if records %}
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.description }}</td>
+                            <td>Dr. {{ record.doctor.user.get_full_name }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox me-1"></i>
+                                No medical records available
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

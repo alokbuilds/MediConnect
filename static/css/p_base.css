@@ -6,6 +6,7 @@
     --bg-main: #f9fffd;
     --bg-card: #ffffff;
     --bg-navbar: #68ae8a;
+    --border-navbar: #5a9776;
     --bg-sidebar: linear-gradient(180deg, #015f1c, #013f12);
 
     --text-main: #333;
@@ -17,17 +18,20 @@
 
 /* 🌙 DARK MODE VARIABLES */
 body.dark-mode {
-    --bg-main: #121212;
-    --bg-card: #1e1e1e;
-    --bg-navbar: #1a1a1a;
-    --bg-sidebar: #0d0d0d;
-    --bg-sidebar-hover: #585858;
-    --bg-sidebar-active: #323232;
-    --text-main: #ffffff;
-    --text-light: #bbb;
+    --bg-main: #121212;        /* main content (dark base) */
+    --bg-card: #1e1e1e;        /* cards */
+    --bg-navbar: #1a1a1a;      /* navbar slightly different */
+    --border-navbar: #1f2933;   /* navbar border darker */
+    --bg-sidebar: #0d1117;     /* sidebar more darker */
+    
+    --bg-sidebar-hover: #1f2933;
+    --bg-sidebar-active: #2c3e50;
+
+    --text-main: #e4e6eb;
+    --text-light: #b0b3b8;
 
     --primary: #4da3ff;
-    --border: #333;
+    --border: #2a2f36;
 }
 
 /* =======================
@@ -80,6 +84,7 @@ body {
 
 .navbar {
     background-color: var(--bg-navbar) !important;
+    border-bottom: 1px solid var(--border-navbar) !important;
 }
 
 .nav-icon {
@@ -148,6 +153,7 @@ body.dark-mode #themeToggle:hover {
 .sidebar {
     min-height: 100vh;
     background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
     padding-top: 20px;
 }
 
@@ -308,3 +314,174 @@ body.dark-mode .custom-table tbody tr:hover {
     background-color: #e0f2fe;
     color: #03a9f4;
 }
+
+/* =======================
+   📅 APPOINTMENT PAGE
+======================= */
+
+.page-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Card */
+.appointment-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    transition: 0.3s;
+}
+
+.appointment-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Form */
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    background: var(--bg-card);
+    color: var(--text-main);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 6px rgba(0,0,0,0.08);
+}
+
+/* Button */
+.btn-book {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+}
+
+/* =======================
+   📅 APPOINTMENT TABLE
+======================= */
+
+.custom-table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Table Head */
+.custom-table thead {
+    background-color: var(--bg-main);
+}
+
+/* Row Hover */
+.custom-table tbody tr:hover {
+    background-color: rgba(0,0,0,0.04);
+}
+
+body.dark-mode .custom-table tbody tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* Table Border */
+.custom-table th,
+.custom-table td {
+    border-color: var(--border) !important;
+}
+
+/* Badge spacing */
+.badge {
+    font-size: 12px;
+    padding: 6px 10px;
+}
+
+/* Buttons */
+.btn-outline-primary,
+.btn-outline-danger,
+.btn-outline-secondary {
+    border-radius: 8px;
+}
+
+/* Card spacing */
+.appointment-card {
+    padding: 20px;
+}
+
+/* =======================
+   👨‍⚕️ DOCTOR LIST TABLE
+======================= */
+
+/* Table wrapper */
+.custom-table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Table header */
+.custom-table thead {
+    background-color: var(--bg-main);
+}
+
+/* Row hover */
+.custom-table tbody tr:hover {
+    background-color: rgba(0,0,0,0.04);
+}
+
+body.dark-mode .custom-table tbody tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* Borders */
+.custom-table th,
+.custom-table td {
+    border-color: var(--border) !important;
+}
+
+/* Badge */
+.badge {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+/* Buttons */
+.btn-outline-primary,
+.btn-outline-secondary {
+    border-radius: 8px;
+}
+
+/* =======================
+   📄 MEDICAL RECORDS
+======================= */
+
+/* Table */
+.custom-table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Header */
+.custom-table thead {
+    background-color: var(--bg-main);
+}
+
+/* Row hover */
+.custom-table tbody tr:hover {
+    background-color: rgba(0,0,0,0.04);
+}
+
+body.dark-mode .custom-table tbody tr:hover {
+    background-color: #2a2a2a;
+}
+
+/* Borders */
+.custom-table th,
+.custom-table td {
+    border-color: var(--border) !important;
+}
+
+/* Empty state */
+.text-muted i {
+    opacity: 0.7;
+}
+
+
