@@ -2,100 +2,226 @@
 {% block title %}Profile Settings{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
 
-    <h4 class="fw-bold mb-3">Profile Settings</h4>
+<div class="page-container">
+
+    <!-- Title -->
+    <h4 class="fw-bold mb-4">
+        <i class="bi bi-person-gear me-2"></i>
+        Profile Settings
+    </h4>
 
     <!-- Messages -->
     {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        {% endfor %}
+        <div class="message-container">
+            {% for message in messages %}
+                <div class="message mb-3 
+                    {% if message.tags == 'success' %}message-success
+                    {% elif message.tags == 'error' %}message-error
+                    {% elif message.tags == 'warning' %}message-warning
+                    {% elif message.tags == 'info' %}message-info
+                    {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <div class="appointment-card">
 
-            <form method="POST" action="{% url 'update_patient_profile' %}">
+        <!-- ================= PROFILE IMAGE ================= -->
+        <div class="text-center mb-4">
+
+            {% if patient.profile_image %}
+                <img id="previewImage"
+                     src="{{ patient.profile_image.url }}"
+                     class="rounded-circle mb-2"
+                     width="100" height="100">
+            {% else %}
+                <img id="previewImage"
+                     src="https://via.placeholder.com/100"
+                     class="rounded-circle mb-2"
+                     width="100" height="100">
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data"
+                  action="{% url 'update_patient_profile_image' %}">
                 {% csrf_token %}
 
-                <!-- BASIC USER INFO -->
-                <h6 class="text-primary mb-3">Basic Information</h6>
+                <input type="file"
+                       name="profile_image"
+                       class="form-control mt-2"
+                       onchange="previewImage(event)">
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">First Name</label>
-                        <input type="text" name="first_name"
-                               value="{{ request.user.first_name }}"
-                               class="form-control" required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Last Name</label>
-                        <input type="text" name="last_name"
-                               value="{{ request.user.last_name }}"
-                               class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email"
-                           value="{{ request.user.email }}"
-                           class="form-control"  value="Inactive" readonly>
-                </div>
-
-                <!-- PATIENT DETAILS -->
-                <h6 class="text-primary mb-3">Patient Details</h6>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Phone</label>
-                        <input type="text" name="phone"
-                               value="{{ patient.phone }}"
-                               class="form-control" required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Gender</label>
-                        <select name="gender" class="form-select">
-                            <option value="">-- Select --</option>
-                            <option value="male" {% if patient.gender == "male" %}selected{% endif %}>Male</option>
-                            <option value="female" {% if patient.gender == "female" %}selected{% endif %}>Female</option>
-                            <option value="other" {% if patient.gender == "other" %}selected{% endif %}>Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Age</label>
-                        <input type="number" name="age"
-                               value="{{ patient.age }}"
-                               class="form-control" min="0">
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Address</label>
-                    <textarea name="address" rows="3"
-                              class="form-control">{{ patient.address }}</textarea>
-                </div>
-
-                <!-- SUBMIT -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary">
-                        Update Profile
-                    </button>
-                </div>
-
+                <button type="submit"
+                        class="btn btn-sm btn-outline-primary mt-2">
+                    Upload Image
+                </button>
             </form>
 
         </div>
+
+        <!-- ================= PROFILE UPDATE ================= -->
+        <form method="POST" action="{% url 'update_patient_profile' %}">
+            {% csrf_token %}
+
+            <h6 class="section-title mb-3">Basic Information</h6>
+
+            <div class="row g-3 mb-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" name="first_name"
+                           value="{{ request.user.first_name }}"
+                           class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" name="last_name"
+                           value="{{ request.user.last_name }}"
+                           class="form-control">
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label">Email</label>
+                    <input type="email"
+                           value="{{ request.user.email }}"
+                           class="form-control" readonly>
+                </div>
+
+            </div>
+
+            <!-- Medical Info -->
+            <h6 class="section-title mb-3">Medical Information</h6>
+
+            <div class="row g-3 mb-3">
+
+                <div class="col-md-4">
+                    <input type="text" name="blood_group"
+                           value="{{ patient.blood_group }}"
+                           class="form-control"
+                           placeholder="Blood Group">
+                </div>
+
+                <div class="col-md-4">
+                    <input type="text" name="allergies"
+                           value="{{ patient.allergies }}"
+                           class="form-control"
+                           placeholder="Allergies">
+                </div>
+
+                <div class="col-md-4">
+                    <input type="text" name="diseases"
+                           value="{{ patient.diseases }}"
+                           class="form-control"
+                           placeholder="Diseases">
+                </div>
+
+            </div>
+
+            <!-- Personal -->
+            <h6 class="section-title mb-3">Personal Details</h6>
+
+            <div class="row g-3 mb-3">
+
+                <div class="col-md-6">
+                    <input type="text" name="phone"
+                           value="{{ patient.phone }}"
+                           class="form-control"
+                           placeholder="Phone">
+                </div>
+
+                <div class="col-md-6">
+                    <select name="gender" class="form-select">
+                        <option value="">-- Select Gender --</option>
+                        <option value="male" {% if patient.gender == "male" %}selected{% endif %}>Male</option>
+                        <option value="female" {% if patient.gender == "female" %}selected{% endif %}>Female</option>
+                        <option value="other" {% if patient.gender == "other" %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <input type="number" name="age" value="{{ patient.age }}" class="form-control" placeholder="Age">
+                </div>
+
+                <div class="col-md-12">
+                    <textarea name="address" class="form-control" placeholder="Address">{{ patient.address }}</textarea>
+                </div>
+
+            </div>
+
+            <div class="text-end mb-4">
+                <button type="submit" class="btn btn-primary btn-book">
+                    Update Profile
+                </button>
+            </div>
+
+        </form>
+
+        <hr>
+
+        <!-- ================= CHANGE PASSWORD ================= -->
+        <form method="POST" action="{% url 'change_patient_profile_password' %}">
+            {% csrf_token %}
+
+            <h6 class="section-title mb-3">Change Password</h6>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <input type="password" name="old_password"
+                           class="form-control"
+                           placeholder="Old Password" required>
+                </div>
+
+                <div class="col-md-4">
+                    <input type="password" id="newPassword"
+                           name="new_password"
+                           class="form-control"
+                           placeholder="New Password" required>
+                </div>
+
+                <div class="col-md-4">
+                    <input type="password" id="confirmPassword"
+                           name="confirm_password"
+                           class="form-control"
+                           placeholder="Confirm Password" required>
+                </div>
+
+            </div>
+
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-outline-danger">
+                    Change Password
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
 </div>
+
+<!-- 🔥 JS -->
+<script>
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById("previewImage").src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+document.querySelector("form[action*='change-password']").addEventListener("submit", function(e){
+    const newPass = document.getElementById("newPassword").value;
+    const confirmPass = document.getElementById("confirmPassword").value;
+
+    if(newPass !== confirmPass){
+        alert("Passwords do not match!");
+        e.preventDefault();
+    }
+});
+</script>
+
 {% endblock %}

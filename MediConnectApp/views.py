@@ -9,6 +9,7 @@ from MediConnectApp.models import PatientProfile, DoctorProfile, HospitalAdminPr
 from django.utils import timezone
 from .utils import get_user_role
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import update_session_auth_hash
 
 
 
@@ -533,6 +534,9 @@ def cancel_appointment(request, appointment_id):
 
     return redirect("patient_my_appointments")
 
+# -------------------------
+# UPDATE PATIENT PROFILE
+# -------------------------
 
 @login_required(login_url="login")
 def update_patient_profile_view(request):
@@ -553,7 +557,6 @@ def update_patient_profile_view(request):
         # Update User fields
         user.first_name = request.POST.get("first_name")
         user.last_name = request.POST.get("last_name")
-        user.email = request.POST.get("email")
         user.save()
 
         # Update PatientProfile fields
@@ -561,6 +564,9 @@ def update_patient_profile_view(request):
         patient_profile.gender = request.POST.get("gender")
         patient_profile.age = request.POST.get("age") or None
         patient_profile.address = request.POST.get("address")
+        patient_profile.blood_group = request.POST.get("blood_group")
+        patient_profile.allergies = request.POST.get("allergies")
+        patient_profile.diseases = request.POST.get("diseases")
         patient_profile.save()
 
         messages.success(request, "Profile updated successfully.")
@@ -576,7 +582,82 @@ def update_patient_profile_view(request):
         context
     )
 
+#-----------------------------
+# UPDATE PATIENT PROFILE IMAGE
+#-----------------------------
+def update_patient_profile_image_view(request):
+    if request.method == "POST":
 
+        try:
+            patient = PatientProfile.objects.get(user=request.user)
+        except PatientProfile.DoesNotExist:
+            messages.error(request, "Profile not found")
+            return redirect("patient_profile")
+
+        image = request.FILES.get("profile_image")
+
+        if not image:
+            messages.error(request, "No image selected")
+            return redirect("patient_profile")
+
+        # ❌ File type check
+        if not image.content_type.startswith("image/"):
+            messages.error(request, "Only image files are allowed")
+            return redirect("patient_profile")
+
+        # ❌ Size check (2MB limit)
+        if image.size > 2 * 1024 * 1024:
+            messages.error(request, "Image must be less than 2MB")
+            return redirect("patient_profile")
+
+        # ✅ Save image
+        patient.profile_image = image
+        patient.save()
+
+        messages.success(request, "Profile image updated successfully")
+        return redirect("patient_profile")
+
+    return redirect("patient_profile")
+
+#-------------------------
+# CHANGE PATIENT PASSWORD
+#-------------------------
+
+def change_patient_profile_password_view(request):
+    if request.method == "POST":
+
+        old_password = request.POST.get("old_password")
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_password")
+
+        user = request.user
+
+        # ❌ Old password check
+        if not user.check_password(old_password):
+            messages.error(request, "Old password is incorrect")
+            return redirect("patient_profile")
+
+        # ❌ Password match check
+        if new_password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect("patient_profile")
+
+        # ❌ Basic validation
+        if len(new_password) < 6:
+            messages.error(request, "Password must be at least 6 characters")
+            return redirect("patient_profile")
+
+        # ✅ Update password
+        user.set_password(new_password)
+        user.save()
+
+        # 🔥 Important (logout hone se bachata hai)
+        update_session_auth_hash(request, user)
+
+        messages.success(request, "Password updated successfully")
+        return redirect("patient_profile")
+
+    return redirect("patient_profile")
 #----------------------------# # # # # # # # # # # #----------------------------#
 #----------------------------#  END PATIENT MODULE #----------------------------#
 #----------------------------# # # # # # # # # # # #----------------------------#

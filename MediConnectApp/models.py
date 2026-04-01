@@ -20,6 +20,11 @@ class PatientProfile(models.Model):
     age = models.PositiveIntegerField(blank=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True)
     address = models.TextField(blank=True)
+    profile_image = models.ImageField(upload_to='profile/', default='default.png')
+
+    blood_group = models.CharField(max_length=5, blank=True)
+    allergies = models.CharField(max_length=255, blank=True)
+    diseases = models.CharField(max_length=255, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

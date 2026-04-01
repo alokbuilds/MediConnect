@@ -27,8 +27,11 @@ urlpatterns = [
     path("patient/doctors-list/", views.doctors_list_view, name="patient_doctors"),
     path("patient/medical-records/", views.medical_records_view, name="patient_medical_records"),
     path("patient/prescriptions/", views.patient_prescriptions_view, name="patient_prescriptions"),
+
     path("patient/profile/", views.patient_profile_view, name="patient_profile"),
     path("patient/profile/update/", views.update_patient_profile_view, name="update_patient_profile"),
+    path('patient/profile/update-image/', views.update_patient_profile_image_view, name='update_patient_profile_image'),
+    path('patient/profile/change-password/', views.change_patient_profile_password_view, name='change_patient_profile_password'),
 
 
     # Doctor URLs
