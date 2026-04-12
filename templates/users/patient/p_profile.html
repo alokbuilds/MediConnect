@@ -32,16 +32,17 @@
         <!-- ================= PROFILE IMAGE ================= -->
         <div class="text-center mb-4">
 
-            {% if patient.profile_image %}
+            {% if patient.profile_image and patient.profile_image.url %}
                 <img id="previewImage"
-                     src="{{ patient.profile_image.url }}"
-                     class="rounded-circle mb-2"
-                     width="100" height="100">
+                    src="{{ patient.profile_image.url }}"
+                    class="rounded-circle mb-2"
+                    width="100" height="100"
+                    onerror="this.src='https://via.placeholder.com/100'">
             {% else %}
                 <img id="previewImage"
-                     src="https://via.placeholder.com/100"
-                     class="rounded-circle mb-2"
-                     width="100" height="100">
+                    src="https://via.placeholder.com/100"
+                    class="rounded-circle mb-2"
+                    width="100" height="100">
             {% endif %}
 
             <form method="POST" enctype="multipart/form-data"
