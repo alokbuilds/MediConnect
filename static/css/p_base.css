@@ -361,6 +361,27 @@ body.dark-mode .custom-table tbody tr:hover {
 }
 
 /* =======================
+✨ PLACEHOLDER FIX (GLOBAL)
+======================= */
+
+.form-control::placeholder,
+textarea::placeholder {
+    color: var(--text-light);
+    opacity: 1;
+}
+
+/* Dark mode me thoda aur visible */
+body.dark-mode .form-control::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #9ca3af;
+}
+
+/* Focus pe hide (premium UX) */
+.form-control:focus::placeholder {
+    opacity: 0.3;
+}
+
+/* =======================
    📅 APPOINTMENT TABLE
 ======================= */
 
