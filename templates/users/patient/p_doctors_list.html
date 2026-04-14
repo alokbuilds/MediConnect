@@ -56,8 +56,8 @@
                         <!-- Action -->
                         <td class="text-center">
                             {% if doctor.is_active %}
-                                <a href="{% url 'patient_book_appointment' %}"
-                                   class="btn btn-sm btn-outline-primary">
+                                <a href="{% url 'patient_book_appointment' %}?doctor_id={{ doctor.id }}"
+                                class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-calendar-plus"></i>
                                 </a>
                             {% else %}

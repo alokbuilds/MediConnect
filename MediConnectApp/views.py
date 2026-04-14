@@ -306,8 +306,29 @@ def patient_book_appointment_view(request):
     patient = request.user.patientprofile
     doctors = DoctorProfile.objects.filter(is_approved=True, is_active=True)
 
+    # 🔥 NEW: doctor_id from URL
+    selected_doctor_id = request.GET.get("doctor_id")
+
     today = date.today()
     max_date = today + timedelta(days=7)
+
+    # 🔥 NEW: AVAILABILITY DATA
+    availability_data = {}
+
+    for doctor in doctors:
+        availability = DoctorAvailability.objects.filter(
+            doctor=doctor,
+            is_active=True
+        )
+
+        availability_data[str(doctor.id)] = [
+            {
+                "day": a.day,
+                "start": a.start_time.strftime("%H:%M"),
+                "end": a.end_time.strftime("%H:%M")
+            }
+            for a in availability
+        ]
 
     if request.method == "POST":
         doctor_id = request.POST.get("doctor")
@@ -371,6 +392,8 @@ def patient_book_appointment_view(request):
         "doctors": doctors,
         "today_date": today,
         "max_date": max_date,
+        "selected_doctor_id": selected_doctor_id,
+        "availability_data": availability_data,   # 🔥 NEW
     }
 
     return render(

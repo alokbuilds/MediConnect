@@ -37,31 +37,49 @@
 
                 <!-- Doctor -->
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Doctor</label>
+                    <label class="form-label fw-semibold" for="id_doctor">Doctor</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="bi bi-person-badge"></i>
                         </span>
-                        <select name="doctor" class="form-select" required>
+                        <select name="doctor" class="form-select" id="id_doctor"
+                           onchange="showAvailability(this.value)" required>
                             <option value="">-- Select Doctor --</option>
+
                             {% for d in doctors %}
-                                <option value="{{ d.id }}">
-                                    {{ d.user.first_name }} {{ d.user.last_name }}
+                                <option value="{{ d.id }}"
+                                    {% if selected_doctor_id == d.id|stringformat:"s" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Dr. {{ d.user.first_name }} {{ d.user.last_name }} - {{ d.specialization|truncatechars:20 }}
                                 </option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
 
+                <!-- Doctor Availability -->
+                <div class="col-md-6">
+                    <h6>Doctor Availability</h6>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-calendar-check"></i>
+                        </span>
+                        <div id="availabilityBox" class="form-control"></div>
+                    </div>
+                </div>
+
                 <!-- Date -->
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Appointment Date</label>
+                    <label class="form-label fw-semibold" for="id_appointment_date">Appointment Date</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="bi bi-calendar"></i>
                         </span>
                         <input type="date"
                                name="appointment_date"
+                               id="id_appointment_date"
                                min="{{ today_date }}"
                                max="{{ max_date }}"
                                class="form-control"
@@ -71,7 +89,7 @@
 
                 <!-- Time -->
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">Time Slot</label>
+                    <label class="form-label fw-semibold" for="id_appointment_time">Time Slot</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <i class="bi bi-clock"></i>
@@ -118,5 +136,41 @@
     <!-- Card End -->
 
 </div>
+<script>
+const availabilityData = {{ availability_data|safe }};
 
+function showAvailability(doctorId) {
+    const box = document.getElementById("availabilityBox");
+    box.innerHTML = "";
+
+    if (!doctorId || !availabilityData[doctorId] || availabilityData[doctorId].length === 0) {
+        box.innerHTML = "<p class='text-muted mb-0'>No availability found</p>";
+        return;
+    }
+
+    let html = `
+        <div class="card p-3 mb-2">
+    `;
+
+    availabilityData[doctorId].forEach(a => {
+        html += `
+            <p class="mb-1">
+                ${a.day.charAt(0).toUpperCase() + a.day.slice(1)} : ${a.start} - ${a.end}
+            </p>
+        `;
+    });
+
+    html += "</div>";
+
+    box.innerHTML = html;
+}
+
+// 🔥 Auto load (If doctor already selected)
+window.onload = function() {
+    const selected = "{{ selected_doctor_id }}";
+    if (selected) {
+        showAvailability(selected);
+    }
+}
+</script>
 {% endblock %}
