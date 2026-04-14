@@ -65,10 +65,18 @@
             <!-- 👤 PROFILE DROPDOWN -->
             <div class="dropdown">
                 <a href="#" 
-                   class="d-flex align-items-center text-white text-decoration-none" 
-                   data-bs-toggle="dropdown">
+                class="d-flex align-items-center text-white text-decoration-none" 
+                data-bs-toggle="dropdown">
 
-                    <i class="bi bi-person-circle fs-5 me-2"></i>
+                    {% if request.user.patientprofile.profile_image %}
+                        <img src="{{ request.user.patientprofile.profile_image.url }}"
+                            class="rounded-circle me-2"
+                            width="32" height="32"
+                            style="object-fit: cover;">
+                    {% else %}
+                        <i class="bi bi-person-circle fs-5 me-2"></i>
+                    {% endif %}
+
                     <span>{{ user.username }}</span>
                 </a>
 
