@@ -88,36 +88,12 @@
                 </div>
 
                 <!-- Time -->
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold" for="id_appointment_time">Time Slot</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="bi bi-clock"></i>
-                        </span>
-                        <select name="appointment_time"
-                                id="id_appointment_time"
-                                class="form-select"
-                                required>
-                            <option value="">-- Select Time Slot --</option>
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Select Time Slot</label>
 
-                            <option value="09:00">09:00 AM</option>
-                            <option value="09:30">09:30 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="10:30">10:30 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="11:30">11:30 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="12:30">12:30 PM</option>
-                            <option value="13:00">01:00 PM</option>
-                            <option value="13:30">01:30 PM</option>
-                            <option value="16:00">04:00 PM</option>
-                            <option value="16:30">04:30 PM</option>
-                            <option value="17:00">05:00 PM</option>
-                            <option value="17:30">05:30 PM</option>
-                            <option value="18:00">06:00 PM</option>
+                    <input type="hidden" name="appointment_time" id="selectedTime">
 
-                        </select>
-                    </div>
+                    <div id="slotContainer" class="d-flex flex-wrap gap-2"></div>
                 </div>
 
                 <!-- Submit -->
@@ -139,6 +115,18 @@
 <script>
 const availabilityData = {{ availability_data|safe }};
 
+// 🔥 Time convert function (24hr → AM/PM)
+function formatTime(timeStr) {
+    let [hour, minute] = timeStr.split(":");
+
+    hour = parseInt(hour);
+
+    let ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+
+    return `${hour.toString().padStart(2, '0')}:${minute} ${ampm}`;
+}
+
 function showAvailability(doctorId) {
     const box = document.getElementById("availabilityBox");
     box.innerHTML = "";
@@ -149,13 +137,15 @@ function showAvailability(doctorId) {
     }
 
     let html = `
-        <div class="card p-3 mb-2">
+        <div class="card p-3 mt-2">
+            <h6 class="mb-2">Doctor Availability</h6>
     `;
 
     availabilityData[doctorId].forEach(a => {
         html += `
             <p class="mb-1">
-                ${a.day.charAt(0).toUpperCase() + a.day.slice(1)} : ${a.start} - ${a.end}
+                ${a.day.charAt(0).toUpperCase() + a.day.slice(1)}: 
+                ${formatTime(a.start)} - ${formatTime(a.end)}
             </p>
         `;
     });
@@ -165,12 +155,60 @@ function showAvailability(doctorId) {
     box.innerHTML = html;
 }
 
-// 🔥 Auto load (If doctor already selected)
+// Auto load
 window.onload = function() {
     const selected = "{{ selected_doctor_id }}";
     if (selected) {
         showAvailability(selected);
     }
 }
+
+
+// All slots
+const allSlots = [
+    "09:00","09:30","10:00","10:30",
+    "11:00","11:30","12:00","12:30",
+    "13:00","13:30",
+    "16:00","16:30","17:00","17:30","18:00"
+];
+
+// Convert AM/PM
+function formatTime(timeStr) {
+    let [hour, minute] = timeStr.split(":");
+    hour = parseInt(hour);
+    let ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+    return `${hour}:${minute} ${ampm}`;
+}
+
+// Render slots
+function renderSlots() {
+    const container = document.getElementById("slotContainer");
+    container.innerHTML = "";
+
+    allSlots.forEach(slot => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "slot-btn btn btn-outline-primary";
+        btn.innerText = formatTime(slot);
+
+        btn.onclick = function () {
+            document.getElementById("selectedTime").value = slot;
+
+            document.querySelectorAll(".slot-btn").forEach(b => {
+                b.classList.remove("active");
+            });
+
+            btn.classList.add("active");
+        };
+
+        container.appendChild(btn);
+    });
+}
+
+// load on start
+window.onload = function () {
+    renderSlots();
+};
 </script>
 {% endblock %}

@@ -21,7 +21,7 @@
 </head>
 <body>
 <!-- Loader -->
-<div id="loader"></div>
+<div id="loader"></div>     <!-- Loader element that will be hidden once the page is fully loaded -->
 
 <!-- NAVBAR -->
 <nav class="sticky-md-top navbar navbar-expand-lg shadow-sm">
@@ -165,7 +165,7 @@
 function updateClock() {
     const now = new Date();
     document.getElementById("clock").textContent =
-        now.toLocaleDateString() + " " + now.toLocaleTimeString();
+        now.toLocaleDateString() + " | " + now.toLocaleTimeString();
 }
 updateClock();
 setInterval(updateClock, 1000);

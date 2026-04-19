@@ -583,4 +583,27 @@ body.dark-mode .appointment-card {
     padding: 8px 16px;
 }
 
+/* =======================
+   📅 APPOINTMENT SLOT SELECTION
+======================= */
+/* Slot buttons */
+.slot-btn {
+    min-width: 100px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+/* Selected */
+.slot-btn.active {
+    background-color: #4da3ff;
+    color: white;
+    border-color: #4da3ff;
+}
+
+/* Disabled (booked) */
+.slot-btn.disabled {
+    background-color: #ccc;
+    color: #666;
+    pointer-events: none;
+}
 
