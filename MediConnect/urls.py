@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # App URLs
+    # MediConnectApp URLs
     path('', include('MediConnectApp.urls')),
 ]
 
